@@ -1,4 +1,4 @@
-# vue-playground
+# Free Throw Pro
 
 > A Vue.js project
 
