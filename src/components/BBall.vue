@@ -96,14 +96,6 @@ export default {
         negative: this.stats[0].right >= getAvg(this.stats, 'right')
       }
     }
-  },
-  methods: {
-    getClassObj(prop) {
-      return {
-        positive: this.stats[0][prop] < getAvg(this.stats, prop),
-        negative: this.stats[0][prop] >= getAvg(this.stats, prop)
-      }
-    }
   }
 }
 const getAvg = (arr, prop) => (arr.reduce((acc, stat) => acc + stat[prop], 0) / arr.length).toFixed(0)
