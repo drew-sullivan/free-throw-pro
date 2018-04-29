@@ -18,22 +18,22 @@
           <td>{{ avgOf10 }}</td>
         </tr>
         <tr>
-          <td>{{ stats[0].date }}</td>
-          <td v-bind:class="classObject_of10">{{ stats[0].of10 }}</td>
-          <td v-bind:class="classObject_legit">{{ stats[0].legit }}</td>
-          <td v-bind:class="classObject_short">{{ stats[0].short }}</td>
-          <td v-bind:class="classObject_long">{{ stats[0].long }}</td>
-          <td v-bind:class="classObject_left">{{ stats[0].left }}</td>
-          <td v-bind:class="classObject_right">{{ stats[0].right }}</td>
+          <td>{{ sortedStats[0].date }}</td>
+          <td v-bind:class="classObject_of10">{{ sortedStats[0].of10 }}</td>
+          <td v-bind:class="classObject_legit">{{ sortedStats[0].legit }}</td>
+          <td v-bind:class="classObject_short">{{ sortedStats[0].short }}</td>
+          <td v-bind:class="classObject_long">{{ sortedStats[0].long }}</td>
+          <td v-bind:class="classObject_left">{{ sortedStats[0].left }}</td>
+          <td v-bind:class="classObject_right">{{ sortedStats[0].right }}</td>
         </tr>
-        <tr v-for="(b, index) in stats.slice(1)" :key="index">
-          <td>{{ b.date }}</td>
-          <td>{{ b.of10 }}</td>
-          <td>{{ b.legit }}</td>
-          <td>{{ b.short }}</td>
-          <td>{{ b.long }}</td>
-          <td>{{ b.left }}</td>
-          <td>{{ b.right }}</td>
+        <tr v-for="(stat, index) in sortedStats.slice(1)" :key="index">
+          <td>{{ stat.date }}</td>
+          <td>{{ stat.of10 }}</td>
+          <td>{{ stat.legit }}</td>
+          <td>{{ stat.short }}</td>
+          <td>{{ stat.long }}</td>
+          <td>{{ stat.left }}</td>
+          <td>{{ stat.right }}</td>
         </tr>
       </tbody>
     </table>
@@ -79,8 +79,11 @@
 export default {
   name: 'BBall',
   props: ['stats'],
-  // created: function () {
-  // },
+  created: function () {
+    console.log(this.stats)
+    this.stats = this.stats.sort(byDate)
+    console.log(this.stats)
+  },
   data () {
     return {
       adding: false,
@@ -132,6 +135,9 @@ export default {
         positive: this.stats[0].right < getAvg(this.stats, 'right'),
         negative: this.stats[0].right >= getAvg(this.stats, 'right')
       }
+    },
+    sortedStats: function () {
+      return this.stats.sort((a, b) => new Date(b.date) - new Date(a.date))
     }
   },
   methods: {
@@ -147,7 +153,6 @@ export default {
       }
       this.toggle()
       this.$emit('add-new-data', newData)
-      this.stats.sort(byDate)
     },
     cancel: function () {
       this.toggle()
@@ -157,7 +162,6 @@ export default {
     }
   }
 }
-const byDate = (a, b) => new Date(b.date) - new Date(a.date)
 const getAvg = (arr, prop) => (arr.reduce((acc, stat) => acc + stat[prop], 0) / arr.length).toFixed(0)
 </script>
 

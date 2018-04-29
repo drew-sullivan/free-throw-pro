@@ -16,7 +16,7 @@ let config = {
 }
 let app = Firebase.initializeApp(config)
 let db = app.database()
-let statsRef = db.ref('stats')
+let statsRef = db.ref('stats').orderByChild('date')
 
 export default {
   name: 'App',
@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     addNewData: function (newStats) {
-      this.stats.push(newStats)
+      statsRef.push(newStats)
     }
   }
 }
