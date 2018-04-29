@@ -1,7 +1,6 @@
 <template>
   <div id="app" class="ui container">
-    <bball stats="stats"></bball>
-    <div v-for="(item, index) in stats" :key="index">{{ item }}</div>
+    <bball v-bind:stats="stats" v-on:add-new-data="addNewData($event)"></bball>
   </div>
 </template>
 
@@ -9,23 +8,29 @@
 import BBall from './components/BBall'
 import Firebase from 'firebase'
 let config = {
-    apiKey: "AIzaSyBqSI9c69b6k8-ozjv9lxmrvm9dAghgstc",
-    authDomain: "free-throw-pro.firebaseapp.com",
-    databaseURL: "https://free-throw-pro.firebaseio.com",
-    storageBucket: "free-throw-pro.appspot.com",
-    messagingSenderId: "607926992175"
-  };
+  apiKey: 'AIzaSyBqSI9c69b6k8-ozjv9lxmrvm9dAghgstc',
+  authDomain: 'free-throw-pro.firebaseapp.com',
+  databaseURL: 'https://free-throw-pro.firebaseio.com',
+  storageBucket: 'free-throw-pro.appspot.com',
+  messagingSenderId: '607926992175'
+}
 let app = Firebase.initializeApp(config)
 let db = app.database()
 let statsRef = db.ref('stats')
 
 export default {
   name: 'App',
+  newData: {},
   firebase: {
     stats: statsRef
   },
   components: {
     bball: BBall
+  },
+  methods: {
+    addNewData: function (newStats) {
+      this.stats.push(newStats)
+    }
   }
 }
 </script>
