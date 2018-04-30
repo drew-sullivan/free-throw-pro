@@ -1,6 +1,11 @@
 <template>
-  <div id="app" class="container">
-    <bball v-bind:stats="stats" v-on:add-new-data="addNewData($event)"></bball>
+  <div>
+    <nav class="navbar navbar-light">
+      <div class="navbar-brand abs">Free Throw Pro</div>
+    </nav>
+    <div id="app" class="container">
+      <bball v-bind:stats="stats" v-on:add-new-data="addNewData($event)"></bball>
+    </div>
   </div>
 </template>
 
@@ -42,5 +47,32 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.container {
+  margin-top: 5px !important;
+}
+
+.navbar {
+  height: 80px;
+  background-color: #6F263D;
+  margin-bottom: 0;
+  border-bottom: 5px solid #FFB81C;
+  border-top: 10px solid #041E42;
+}
+
+.navbar-brand.abs {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  text-align: center;
+  color: #FFB81C;
+  line-height: 35px;
+  font-size: 40px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+h1 {
+  margin-top: 10px;
 }
 </style>

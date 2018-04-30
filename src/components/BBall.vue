@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>{{ freeThrowAverage }}%</h1>
     <button v-show="!adding" @click="toggle" class="btn btn-success">&#43; New Session</button>
     <div  v-show="adding" class="form-row">
       <div class="form-group col-md-2">
@@ -47,10 +48,6 @@
       </thead>
       <tbody>
         <tr>
-          <td>Lifetime</td>
-          <td>{{ avgOf10 }}</td>
-        </tr>
-        <tr>
           <td>{{ sortedStats[0].date }}</td>
           <td v-bind:class="classObject_of10">{{ sortedStats[0].of10 }}</td>
           <td v-bind:class="classObject_legit">{{ sortedStats[0].legit }}</td>
@@ -90,8 +87,8 @@ export default {
     }
   },
   computed: {
-    avgOf10: function () {
-      return `${getAvg(this.stats, 'of10') * 10}%`
+    freeThrowAverage: function () {
+      return getAvg(this.stats, 'of10') * 10
     },
     classObject_legit: function () {
       return {
@@ -155,7 +152,7 @@ export default {
     }
   }
 }
-const getAvg = (arr, prop) => (arr.reduce((acc, stat) => acc + stat[prop], 0) / arr.length).toFixed(0)
+const getAvg = (arr, prop) => (arr.reduce((acc, stat) => acc + +stat[prop], 0) / arr.length).toFixed(2)
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -173,5 +170,17 @@ li {
 }
 a {
   color: #42b983;
+}
+
+.positive {
+  background-color: #D0E7D0;
+}
+
+.negative {
+  background-color: #FFD0D0;
+}
+
+label {
+  float: left;
 }
 </style>
