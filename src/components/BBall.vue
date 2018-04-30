@@ -1,5 +1,38 @@
 <template>
   <div>
+    <button v-show="!adding" @click="toggle" class="btn btn-success">&#43; New Session</button>
+    <div  v-show="adding" class="form-row">
+      <div class="form-group col-md-2">
+        <label>Date</label>
+        <input type="date" placeholder="date" name="date" value="date" v-model="date" class="form-control">
+      </div>
+      <div class="form-group col-md-2">
+        <label>Out of 10</label>
+        <input class="form-control" type="number" placeholder="Out of 10" name="of10" value="num" v-model="of10">
+      </div>
+      <div class="form-group col-md-2">
+        <label>Legit</label>
+        <input class="form-control" type="number" placeholder="Legit" name="legit" value="num" v-model="legit">
+      </div>
+      <div class="form-group col-md-2">
+        <label>Short</label>
+        <input class="form-control" type="number" placeholder="Short" name="short" value="num" v-model="short">
+      </div>
+      <div class="form-group col-md-2">
+        <label>Long</label>
+        <input class="form-control" type="number" placeholder="Long" name="long" value="num" v-model="long">
+      </div>
+      <div class="form-group col-md-2">
+        <label>Left</label>
+        <input class="form-control" type="number" placeholder="Left" name="left" value="num" v-model="left">
+      </div>
+      <div class="form-group col-md-2">
+        <label>Right</label>
+        <input class="form-control" type="number" placeholder="Right" name="right" value="num" v-model="right">
+      </div>
+      <button @click="cancel" class="btn btn-secondary">Cancel</button>
+      <button @click="add" class="btn btn-primary">Submit</button>
+    </div>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -37,39 +70,6 @@
         </tr>
       </tbody>
     </table>
-    <button v-show="!adding" @click="toggle">+</button>
-    <div  v-show="adding" class="form-row">
-      <div class="form-group col-md-2">
-        <label>Date</label>
-        <input type="date" placeholder="date" name="date" value="date" v-model="date" class="form-control">
-      </div>
-      <div class="form-group col-md-2">
-        <label>Out of 10</label>
-        <input class="form-control" type="number" placeholder="Out of 10" name="of10" value="num" v-model="of10">
-      </div>
-      <div class="form-group col-md-2">
-        <label>Legit</label>
-        <input class="form-control" type="number" placeholder="Legit" name="legit" value="num" v-model="legit">
-      </div>
-      <div class="form-group col-md-2">
-        <label>Short</label>
-        <input class="form-control" type="number" placeholder="Short" name="short" value="num" v-model="short">
-      </div>
-      <div class="form-group col-md-2">
-        <label>Long</label>
-        <input class="form-control" type="number" placeholder="Long" name="long" value="num" v-model="long">
-      </div>
-      <div class="form-group col-md-2">
-        <label>Left</label>
-        <input class="form-control" type="number" placeholder="Left" name="left" value="num" v-model="left">
-      </div>
-      <div class="form-group col-md-2">
-        <label>Right</label>
-        <input class="form-control" type="number" placeholder="Right" name="right" value="num" v-model="right">
-      </div>
-      <button @click="cancel" class="btn btn-secondary">Cancel</button>
-      <button @click="add" class="btn btn-primary">Submit</button>
-    </div>
   </div>
 </template>
 
