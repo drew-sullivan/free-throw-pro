@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table class="ui celled table">
+    <table class="table table-striped">
       <thead>
         <tr>
           <th>Date</th>
@@ -38,39 +38,37 @@
       </tbody>
     </table>
     <button v-show="!adding" @click="toggle">+</button>
-    <div v-show="adding" class="ui form">
-      <div class="fields">
-        <div class="field">
-          <label>Date</label>
-          <input type="date" placeholder="date" name="date" value="date" v-model="date">
-        </div>
-        <div class="field">
-          <label>Out of 10</label>
-          <input type="number" placeholder="Out of 10" name="of10" value="num" v-model="of10">
-        </div>
-        <div class="field">
-          <label>Legit</label>
-          <input type="number" placeholder="Legit" name="legit" value="num" v-model="legit">
-        </div>
-        <div class="field">
-          <label>Short</label>
-          <input type="number" placeholder="Short" name="short" value="num" v-model="short">
-        </div>
-        <div class="field">
-          <label>Long</label>
-          <input type="number" placeholder="Long" name="long" value="num" v-model="long">
-        </div>
-        <div class="field">
-          <label>Left</label>
-          <input type="number" placeholder="Left" name="Left" value="num" v-model="left">
-        </div>
-        <div class="field">
-          <label>Right</label>
-          <input type="number" placeholder="Right" name="right" value="num" v-model="right">
-        </div>
+    <div  v-show="adding" class="form-row">
+      <div class="form-group col-md-2">
+        <label>Date</label>
+        <input type="date" placeholder="date" name="date" value="date" v-model="date" class="form-control">
       </div>
-      <button @click="add">Submit</button>
-      <button @click="cancel">Cancel</button>
+      <div class="form-group col-md-2">
+        <label>Out of 10</label>
+        <input class="form-control" type="number" placeholder="Out of 10" name="of10" value="num" v-model="of10">
+      </div>
+      <div class="form-group col-md-2">
+        <label>Legit</label>
+        <input class="form-control" type="number" placeholder="Legit" name="legit" value="num" v-model="legit">
+      </div>
+      <div class="form-group col-md-2">
+        <label>Short</label>
+        <input class="form-control" type="number" placeholder="Short" name="short" value="num" v-model="short">
+      </div>
+      <div class="form-group col-md-2">
+        <label>Long</label>
+        <input class="form-control" type="number" placeholder="Long" name="long" value="num" v-model="long">
+      </div>
+      <div class="form-group col-md-2">
+        <label>Left</label>
+        <input class="form-control" type="number" placeholder="Left" name="left" value="num" v-model="left">
+      </div>
+      <div class="form-group col-md-2">
+        <label>Right</label>
+        <input class="form-control" type="number" placeholder="Right" name="right" value="num" v-model="right">
+      </div>
+      <button @click="cancel" class="btn btn-secondary">Cancel</button>
+      <button @click="add" class="btn btn-primary">Submit</button>
     </div>
   </div>
 </template>
@@ -79,11 +77,6 @@
 export default {
   name: 'BBall',
   props: ['stats'],
-  created: function () {
-    console.log(this.stats)
-    this.stats = this.stats.sort(byDate)
-    console.log(this.stats)
-  },
   data () {
     return {
       adding: false,

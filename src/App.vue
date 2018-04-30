@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="ui container">
+  <div id="app" class="container">
     <bball v-bind:stats="stats" v-on:add-new-data="addNewData($event)"></bball>
   </div>
 </template>
