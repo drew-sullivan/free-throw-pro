@@ -26,6 +26,7 @@
           <td v-bind:class="classObject_left">{{ sortedStats[0].left }}</td>
           <td v-bind:class="classObject_right">{{ sortedStats[0].right }}</td>
         </tr>
+<<<<<<< HEAD
         <tr v-for="(b, index) in sortedStats.slice(1)" :key="index">
           <td>{{ b.date }}</td>
           <td>{{ b.of10 }}</td>
@@ -34,6 +35,16 @@
           <td>{{ b.long }}</td>
           <td>{{ b.left }}</td>
           <td>{{ b.right }}</td>
+=======
+        <tr v-for="(stat, index) in sortedStats.slice(1)" :key="index">
+          <td>{{ stat.date }}</td>
+          <td>{{ stat.of10 }}</td>
+          <td>{{ stat.legit }}</td>
+          <td>{{ stat.short }}</td>
+          <td>{{ stat.long }}</td>
+          <td>{{ stat.left }}</td>
+          <td>{{ stat.right }}</td>
+>>>>>>> ae2bb8e7a093cfd8ec43cc9f9613dfac855946d9
         </tr>
       </tbody>
     </table>
@@ -79,8 +90,11 @@
 export default {
   name: 'BBall',
   props: ['stats'],
-  // created: function () {
-  // },
+  created: function () {
+    console.log(this.stats)
+    this.stats = this.stats.sort(byDate)
+    console.log(this.stats)
+  },
   data () {
     return {
       adding: false,
@@ -150,7 +164,6 @@ export default {
       }
       this.toggle()
       this.$emit('add-new-data', newData)
-      this.stats.sort(byDate)
     },
     cancel: function () {
       this.toggle()
@@ -160,7 +173,6 @@ export default {
     }
   }
 }
-const byDate = (a, b) => new Date(b.date) - new Date(a.date)
 const getAvg = (arr, prop) => (arr.reduce((acc, stat) => acc + stat[prop], 0) / arr.length).toFixed(0)
 </script>
 
