@@ -56,7 +56,7 @@
           <td v-bind:class="classObject_legit">{{ sortedStats[0].legit }}</td>
           <td v-bind:class="classObject_short">{{ sortedStats[0].short }}</td>
           <td v-bind:class="classObject_long">{{ sortedStats[0].long }}</td>
-          <td v-bind:class="classObject_left">{{ sortedStats[0].left }}</td>
+          <td v-bind:class="classObject_left('left')">{{ sortedStats[0].left }}</td>
           <td v-bind:class="classObject_right">{{ sortedStats[0].right }}</td>
         </tr>
         <tr v-for="(stat, index) in sortedStats.slice(1)" :key="index">
@@ -117,19 +117,23 @@ export default {
         negative: this.stats[0].long >= getAvg(this.stats, 'long')
       }
     },
-    classObject_left: function () {
-      return {
-        positive: this.stats[0].left < getAvg(this.stats, 'left'),
-        negative: this.stats[0].left >= getAvg(this.stats, 'left')
-      }
-    },
+    // classObject_left: function () {
+    //   return {
+    //     positive: this.stats[0].left < getAvg(this.stats, 'left'),
+    //     negative: this.stats[0].left >= getAvg(this.stats, 'left')
+    //   }
+    // },
     classObject_right: function () {
       return {
         positive: this.stats[0].right < getAvg(this.stats, 'right'),
         negative: this.stats[0].right >= getAvg(this.stats, 'right')
       }
     },
+    statsLen: function () {
+      return this.stats.length - 1
+    },
     sortedStats: function () {
+      console.log(this.stats.slice().sort((a, b) => new Date(b.date) - new Date(a.date)))
       return this.stats.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
     }
   },
@@ -152,6 +156,15 @@ export default {
     },
     toggle: function () {
       this.adding = !this.adding
+    },
+    classObject_left: function (prop) {
+      console.log(prop)
+      console.log(this.stats[0][prop] < getAvg(this.stats, prop))
+      console.log(this.stats[0][prop] >= getAvg(this.stats, prop))
+      return {
+        positive: this.stats[0][prop] < getAvg(this.stats, prop),
+        negative: this.stats[0][prop] >= getAvg(this.stats, prop)
+      }
     }
   }
 }
