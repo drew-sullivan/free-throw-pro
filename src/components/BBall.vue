@@ -203,4 +203,20 @@ label {
   height: 60px;
   font-size: 35px;
 }
+
+input[type="date"] {
+  display:block;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  min-height: 1.2em;
+}
+
+select, textarea, input[type="text"], input[type="password"],
+input[type="datetime"], input[type="datetime-local"],
+input[type="date"], input[type="month"], input[type="time"],
+input[type="week"], input[type="number"], input[type="email"],
+input[type="url"], input[type="search"], input[type="tel"],
+input[type="color"] {
+  font-size: 16px;
+}
 </style>
