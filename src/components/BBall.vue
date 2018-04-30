@@ -41,23 +41,23 @@
       <thead>
         <tr>
           <th>Date</th>
-          <th>of 10</th>
-          <th>Legit</th>
-          <th>Short</th>
-          <th>Long</th>
-          <th>Left</th>
-          <th>Right</th>
+          <th>of 10 {{ getAvg(this.sortedStats, 'of10') }}</th>
+          <th>Legit {{ getAvg(this.sortedStats, 'legit') }}</th>
+          <th>Short {{ getAvg(this.sortedStats, 'short') }}</th>
+          <th>Long {{ getAvg(this.sortedStats, 'long') }}</th>
+          <th>Left {{ getAvg(this.sortedStats, 'left') }}</th>
+          <th>Right {{ getAvg(this.sortedStats, 'right') }}</th>
         </tr>
       </thead>
       <tbody>
         <tr v-if="sortedStats.length">
           <td>{{ sortedStats[0].date }}</td>
-          <td v-bind:class="classObject_of10">{{ sortedStats[0].of10 }}</td>
-          <td v-bind:class="classObject_legit">{{ sortedStats[0].legit }}</td>
-          <td v-bind:class="classObject_short">{{ sortedStats[0].short }}</td>
-          <td v-bind:class="classObject_long">{{ sortedStats[0].long }}</td>
-          <td v-bind:class="classObject_left('left')">{{ sortedStats[0].left }}</td>
-          <td v-bind:class="classObject_right">{{ sortedStats[0].right }}</td>
+          <td v-bind:class="getColorStatus('of10')">{{ sortedStats[0].of10 }}</td>
+          <td v-bind:class="getColorStatus('legit')">{{ sortedStats[0].legit }}</td>
+          <td v-bind:class="getColorStatus('short')">{{ sortedStats[0].short }}</td>
+          <td v-bind:class="getColorStatus('long')">{{ sortedStats[0].long }}</td>
+          <td v-bind:class="getColorStatus('left')">{{ sortedStats[0].left }}</td>
+          <td v-bind:class="getColorStatus('right')">{{ sortedStats[0].right }}</td>
         </tr>
         <tr v-for="(stat, index) in sortedStats.slice(1)" :key="index">
           <td>{{ stat.date }}</td>
@@ -91,43 +91,7 @@ export default {
   },
   computed: {
     freeThrowAverage: function () {
-      return getAvg(this.stats, 'of10') * 10
-    },
-    classObject_legit: function () {
-      return {
-        positive: this.stats[0].legit < getAvg(this.stats, 'legit'),
-        negative: this.stats[0].legit >= getAvg(this.stats, 'legit')
-      }
-    },
-    classObject_of10: function () {
-      return {
-        positive: this.stats[0].of10 < getAvg(this.stats, 'of10'),
-        negative: this.stats[0].of10 >= getAvg(this.stats, 'of10')
-      }
-    },
-    classObject_short: function () {
-      return {
-        positive: this.stats[0].short < getAvg(this.stats, 'short'),
-        negative: this.stats[0].short >= getAvg(this.stats, 'short')
-      }
-    },
-    classObject_long: function () {
-      return {
-        positive: this.stats[0].long < getAvg(this.stats, 'long'),
-        negative: this.stats[0].long >= getAvg(this.stats, 'long')
-      }
-    },
-    // classObject_left: function () {
-    //   return {
-    //     positive: this.stats[0].left < getAvg(this.stats, 'left'),
-    //     negative: this.stats[0].left >= getAvg(this.stats, 'left')
-    //   }
-    // },
-    classObject_right: function () {
-      return {
-        positive: this.stats[0].right < getAvg(this.stats, 'right'),
-        negative: this.stats[0].right >= getAvg(this.stats, 'right')
-      }
+      return this.getAvg(this.stats, 'of10') * 10
     },
     statsLen: function () {
       return this.stats.length - 1
@@ -157,18 +121,26 @@ export default {
     toggle: function () {
       this.adding = !this.adding
     },
-    classObject_left: function (prop) {
-      console.log(prop)
-      console.log(this.stats[0][prop] < getAvg(this.stats, prop))
-      console.log(this.stats[0][prop] >= getAvg(this.stats, prop))
-      return {
-        positive: this.stats[0][prop] < getAvg(this.stats, prop),
-        negative: this.stats[0][prop] >= getAvg(this.stats, prop)
+    getColorStatus: function (prop) {
+      const stat = this.sortedStats[0][prop]
+      const avg = this.getAvg(this.stats, prop)
+      if (prop === 'of10') {
+        return {
+          positive: +stat > +avg,
+          negative: +stat <= +avg
+        }
+      } else {
+        return {
+          positive: +stat < +avg,
+          negative: +stat >= +avg
+        }
       }
+    },
+    getAvg: function (arr, prop) {
+      return (arr.reduce((acc, stat) => acc + +stat[prop], 0) / arr.length).toFixed(2)
     }
   }
 }
-const getAvg = (arr, prop) => (arr.reduce((acc, stat) => acc + +stat[prop], 0) / arr.length).toFixed(2)
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
