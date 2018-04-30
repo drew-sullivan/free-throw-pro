@@ -1,7 +1,9 @@
 <template>
   <div>
-    <p class="top-label">Free Throw Average</p>
-    <h1>{{ freeThrowAverage }}%</h1>
+    <div v-if="sortedStats.length">
+      <p class="top-label">Free Throw Average</p>
+      <h1>{{ freeThrowAverage }}%</h1>
+    </div>
     <button v-show="!adding" @click="toggle" class="btn btn-success mobile-button util-margin-20">&#43; New Session</button>
     <div  v-show="adding" class="form-row">
       <div class="form-group col-md-2">
@@ -48,7 +50,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr v-if="sortedStats.length">
           <td>{{ sortedStats[0].date }}</td>
           <td v-bind:class="classObject_of10">{{ sortedStats[0].of10 }}</td>
           <td v-bind:class="classObject_legit">{{ sortedStats[0].legit }}</td>
@@ -75,10 +77,6 @@
 export default {
   name: 'BBall',
   props: ['stats'],
-  created: function () {
-    if (this.stats.length === 0)
-    console.log(this.stats)
-  },
   data () {
     return {
       adding: false,
@@ -132,12 +130,7 @@ export default {
       }
     },
     sortedStats: function () {
-      if (this.stats.length === 0) {
-        return {
-
-        }
-      }
-      return this.stats.sort((a, b) => new Date(b.date) - new Date(a.date))
+      return this.stats.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
     }
   },
   methods: {
