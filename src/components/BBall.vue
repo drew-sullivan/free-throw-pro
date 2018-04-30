@@ -2,7 +2,7 @@
   <div>
     <p class="top-label">Free Throw Average</p>
     <h1>{{ freeThrowAverage }}%</h1>
-    <button v-show="!adding" @click="toggle" class="btn btn-success plus-button">&#43; New Session</button>
+    <button v-show="!adding" @click="toggle" class="btn btn-success mobile-button util-margin-20">&#43; New Session</button>
     <div  v-show="adding" class="form-row">
       <div class="form-group col-md-2">
         <label>Date</label>
@@ -32,8 +32,8 @@
         <label>Right</label>
         <input class="form-control" type="number" placeholder="Right" name="right" value="num" v-model="right">
       </div>
-      <button @click="cancel" class="btn btn-secondary">Cancel</button>
-      <button @click="add" class="btn btn-primary">Submit</button>
+      <button @click="cancel" class="btn btn-secondary mobile-button">Cancel</button>
+      <button @click="add" class="btn btn-primary mobile-button">Submit</button>
     </div>
     <table class="table table-striped">
       <thead>
@@ -200,8 +200,12 @@ label {
   margin: 20px auto -10px auto !important;
 }
 
-.plus-button {
+.util-margin-20 {
   margin: 20px auto;
+}
+
+.mobile-button {
+  margin: 5px auto;
   width: 100%;
   height: 60px;
   font-size: 35px;
