@@ -40,13 +40,22 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Date</th>
-          <th>of 10 {{ getAvg(this.sortedStats, 'of10') }}</th>
-          <th>Legit {{ getAvg(this.sortedStats, 'legit') }}</th>
-          <th>Short {{ getAvg(this.sortedStats, 'short') }}</th>
-          <th>Long {{ getAvg(this.sortedStats, 'long') }}</th>
-          <th>Left {{ getAvg(this.sortedStats, 'left') }}</th>
-          <th>Right {{ getAvg(this.sortedStats, 'right') }}</th>
+          <th></th>
+          <th>of 10</th>
+          <th>Legit</th>
+          <th>Short</th>
+          <th>Long</th>
+          <th>Left</th>
+          <th>Right</th>
+        </tr>
+        <tr>
+          <th>Average</th>
+          <th>{{ getAvg(this.sortedStats, 'of10') }}</th>
+          <th>{{ getAvg(this.sortedStats, 'legit') }}</th>
+          <th>{{ getAvg(this.sortedStats, 'short') }}</th>
+          <th>{{ getAvg(this.sortedStats, 'long') }}</th>
+          <th>{{ getAvg(this.sortedStats, 'left') }}</th>
+          <th>{{ getAvg(this.sortedStats, 'right') }}</th>
         </tr>
       </thead>
       <tbody>
