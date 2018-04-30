@@ -16,7 +16,7 @@ let config = {
 }
 let app = Firebase.initializeApp(config)
 let db = app.database()
-let statsRef = db.ref('stats').orderByChild('date')
+let statsRef = db.ref('stats')
 
 export default {
   name: 'App',
