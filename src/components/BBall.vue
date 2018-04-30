@@ -1,7 +1,8 @@
 <template>
   <div>
+    <p class="top-label">Free Throw Average</p>
     <h1>{{ freeThrowAverage }}%</h1>
-    <button v-show="!adding" @click="toggle" class="btn btn-success">&#43; New Session</button>
+    <button v-show="!adding" @click="toggle" class="btn btn-success plus-button">&#43; New Session</button>
     <div  v-show="adding" class="form-row">
       <div class="form-group col-md-2">
         <label>Date</label>
@@ -74,6 +75,10 @@
 export default {
   name: 'BBall',
   props: ['stats'],
+  created: function () {
+    if (this.stats.length === 0)
+    console.log(this.stats)
+  },
   data () {
     return {
       adding: false,
@@ -127,6 +132,11 @@ export default {
       }
     },
     sortedStats: function () {
+      if (this.stats.length === 0) {
+        return {
+
+        }
+      }
       return this.stats.sort((a, b) => new Date(b.date) - new Date(a.date))
     }
   },
@@ -182,5 +192,18 @@ a {
 
 label {
   float: left;
+}
+
+.top-label {
+  font-size: 20px;
+  color: #878787;
+  margin: 20px auto -10px auto !important;
+}
+
+.plus-button {
+  margin: 20px auto;
+  width: 100%;
+  height: 60px;
+  font-size: 35px;
 }
 </style>

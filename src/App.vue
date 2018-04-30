@@ -73,6 +73,12 @@ export default {
 }
 
 h1 {
+  font-size: 100px;
   margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.table {
+  margin-top: 20px;
 }
 </style>
