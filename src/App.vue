@@ -20,7 +20,6 @@ let statsRef = db.ref('stats')
 
 export default {
   name: 'App',
-  newData: {},
   firebase: {
     stats: statsRef
   },
@@ -29,7 +28,7 @@ export default {
   },
   methods: {
     addNewData: function (newStats) {
-      this.stats.push(newStats)
+      statsRef.push(newStats)
     }
   }
 }

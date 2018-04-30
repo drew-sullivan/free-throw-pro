@@ -18,15 +18,15 @@
           <td>{{ avgOf10 }}</td>
         </tr>
         <tr>
-          <td>{{ stats[0].date }}</td>
-          <td v-bind:class="classObject_of10">{{ stats[0].of10 }}</td>
-          <td v-bind:class="classObject_legit">{{ stats[0].legit }}</td>
-          <td v-bind:class="classObject_short">{{ stats[0].short }}</td>
-          <td v-bind:class="classObject_long">{{ stats[0].long }}</td>
-          <td v-bind:class="classObject_left">{{ stats[0].left }}</td>
-          <td v-bind:class="classObject_right">{{ stats[0].right }}</td>
+          <td>{{ sortedStats[0].date }}</td>
+          <td v-bind:class="classObject_of10">{{ sortedStats[0].of10 }}</td>
+          <td v-bind:class="classObject_legit">{{ sortedStats[0].legit }}</td>
+          <td v-bind:class="classObject_short">{{ sortedStats[0].short }}</td>
+          <td v-bind:class="classObject_long">{{ sortedStats[0].long }}</td>
+          <td v-bind:class="classObject_left">{{ sortedStats[0].left }}</td>
+          <td v-bind:class="classObject_right">{{ sortedStats[0].right }}</td>
         </tr>
-        <tr v-for="(b, index) in stats.slice(1)" :key="index">
+        <tr v-for="(b, index) in sortedStats.slice(1)" :key="index">
           <td>{{ b.date }}</td>
           <td>{{ b.of10 }}</td>
           <td>{{ b.legit }}</td>
@@ -132,6 +132,9 @@ export default {
         positive: this.stats[0].right < getAvg(this.stats, 'right'),
         negative: this.stats[0].right >= getAvg(this.stats, 'right')
       }
+    },
+    sortedStats: function () {
+      return this.stats.sort((a, b) => new Date(b.date) - new Date(a.date))
     }
   },
   methods: {
