@@ -1,4 +1,6 @@
 <script>
+// https://github.com/apertureless/vue-chartjs
+
 import { Bar } from 'vue-chartjs'
 
 export default {
