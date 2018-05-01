@@ -13,11 +13,13 @@ export default {
         labels: this.sortedStats.map(stat => stat.date).reverse(),
         datasets: [
           {
-            label: 'Data One',
-            backgroundColor: '#f87979',
-            pointBackgroundColor: 'white',
-            borderWidth: 1,
-            pointBorderColor: '#249EBF',
+            label: 'Out of 10',
+            borderColor: 'rgba(111, 38, 61, 1)',
+            backgroundColor: 'rgba(111, 38, 61, 0.4)',
+
+            pointBackgroundColor: 'rgba(255, 184, 28, 1)',
+            pointBorderColor: 'rgba(4, 30, 66, 1)',
+            pointBorderWidth: 3,
             // Data to be represented on y-axis
             data: this.sortedStats.map(stat => stat.of10).reverse()
           }
