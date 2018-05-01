@@ -1,22 +1,32 @@
 <script>
 // https://github.com/apertureless/vue-chartjs
 
-import { Bar } from 'vue-chartjs'
+import { Line } from 'vue-chartjs'
 
 export default {
-  extends: Bar,
+  extends: Line,
+  props: ['sortedStats'],
+  data () {
+    return {
+      datacollection: {
+        // Data to be represented on x-axis
+        labels: this.sortedStats.map(stat => stat.date).reverse(),
+        datasets: [
+          {
+            label: 'Data One',
+            backgroundColor: '#f87979',
+            pointBackgroundColor: 'white',
+            borderWidth: 1,
+            pointBorderColor: '#249EBF',
+            // Data to be represented on y-axis
+            data: this.sortedStats.map(stat => stat.of10).reverse()
+          }
+        ]
+      }
+    }
+  },
   mounted () {
-    // Overwriting base render method with actual data.
-    this.renderChart({
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-      datasets: [
-        {
-          label: 'GitHub Commits',
-          backgroundColor: '#f87979',
-          data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
-        }
-      ]
-    })
+    this.renderChart(this.datacollection)
   }
 }
 </script>

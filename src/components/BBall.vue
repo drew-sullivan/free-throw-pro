@@ -4,6 +4,9 @@
       <p class="top-label">Free Throw Average</p>
       <h1>{{ freeThrowAverage }}%</h1>
     </div>
+
+    <stats-chart v-bind:sortedStats="sortedStats"></stats-chart>
+
     <button v-show="!adding" @click="toggle" class="btn btn-success mobile-button util-margin-20">&#43; New Session</button>
     <div  v-show="adding" class="form-row">
       <div class="form-group col-md-2">
@@ -83,9 +86,14 @@
 </template>
 
 <script>
+import StatsChart from './StatsChart'
+
 export default {
   name: 'BBall',
   props: ['stats'],
+  components: {
+    statsChart: StatsChart
+  },
   data () {
     return {
       adding: false,
@@ -106,7 +114,6 @@ export default {
       return this.stats.length - 1
     },
     sortedStats: function () {
-      console.log(this.stats.slice().sort((a, b) => new Date(b.date) - new Date(a.date)))
       return this.stats.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
     }
   },
