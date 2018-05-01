@@ -5,7 +5,8 @@
       <h1>{{ freeThrowAverage }}%</h1>
     </div>
 
-    <stats-chart v-bind:sortedStats="sortedStats"></stats-chart>
+    <stats-chart v-bind:sortedStats="sortedStats" class="stat-chart"></stats-chart>
+    <helper-shots-chart v-bind:sortedStats="sortedStats" class="stat-chart"></helper-shots-chart>
 
     <button v-show="!adding" @click="toggle" class="btn btn-success mobile-button util-margin-20">&#43; New Session</button>
     <div  v-show="adding" class="form-row">
@@ -87,12 +88,14 @@
 
 <script>
 import StatsChart from './StatsChart'
+import HelperShotsChart from './HelperShotsChart.vue'
 
 export default {
   name: 'BBall',
   props: ['stats'],
   components: {
-    statsChart: StatsChart
+    statsChart: StatsChart,
+    helperShotsChart: HelperShotsChart
   },
   data () {
     return {
@@ -219,5 +222,9 @@ input[type="week"], input[type="number"], input[type="email"],
 input[type="url"], input[type="search"], input[type="tel"],
 input[type="color"] {
   font-size: 16px;
+}
+
+.stat-chart {
+  margin: 30px auto;
 }
 </style>
