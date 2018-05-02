@@ -9,7 +9,7 @@ export default {
   data () {
     return {
       datacollection: {
-        labels: this.sortedStats.map(stat => stat.date).reverse(),
+        labels: this.getData('date'),
         datasets: [
           {
             label: 'legit',
@@ -18,7 +18,7 @@ export default {
             pointBackgroundColor: 'white',
             pointBorderColor: '#FF0476',
             pointBorderWidth: 2,
-            data: this.sortedStats.map(stat => stat.legit).reverse()
+            data: this.getData('legit')
           },
           {
             label: 'short',
@@ -27,7 +27,7 @@ export default {
             pointBackgroundColor: 'white',
             pointBorderColor: '#FE9A00',
             pointBorderWidth: 2,
-            data: this.sortedStats.map(stat => stat.short).reverse()
+            data: this.getData('short')
           },
           {
             label: 'long',
@@ -36,7 +36,7 @@ export default {
             pointBackgroundColor: 'white',
             pointBorderColor: '#00D647',
             pointBorderWidth: 2,
-            data: this.sortedStats.map(stat => stat.long).reverse()
+            data: this.getData('long')
           },
           {
             label: 'left',
@@ -45,7 +45,7 @@ export default {
             pointBackgroundColor: 'white',
             pointBorderColor: '#006DD4',
             pointBorderWidth: 2,
-            data: this.sortedStats.map(stat => stat.left).reverse()
+            data: this.getData('left')
           },
           {
             label: 'right',
@@ -54,10 +54,16 @@ export default {
             pointBackgroundColor: 'white',
             pointBorderColor: '#5D2E8C',
             pointBorderWidth: 2,
-            data: this.sortedStats.map(stat => stat.right).reverse()
+            data: this.getData('right')
           }
         ]
       }
+    }
+  },
+  methods: {
+    getData: function (prop) {
+      console.log(this.sortedStats.map(stat => stat[prop]).reverse())
+      return this.sortedStats.map(stat => stat[prop]).reverse()
     }
   },
   mounted () {
