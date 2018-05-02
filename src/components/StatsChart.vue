@@ -5,7 +5,7 @@ import { Line } from 'vue-chartjs'
 
 export default {
   extends: Line,
-  props: ['sortedStats'],
+  props: [ 'sortedStats' ],
   data () {
     return {
       datacollection: {
