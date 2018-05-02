@@ -6,7 +6,7 @@ import { Line } from 'vue-chartjs'
 export default {
   extends: Line,
   props: ['sortedStats'],
-  data () {
+  data: function () {
     return {
       datacollection: {
         labels: this.getData('date'),
@@ -66,7 +66,7 @@ export default {
       return this.sortedStats.map(stat => stat[prop]).reverse()
     }
   },
-  mounted () {
+  mounted: function () {
     this.renderChart(this.datacollection)
   }
 }
