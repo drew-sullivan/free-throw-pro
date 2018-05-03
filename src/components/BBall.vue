@@ -5,8 +5,8 @@
       <h1>{{ freeThrowAverage }}%</h1>
     </div>
 
-    <stats-chart v-bind:sortedStats="sortedStats" class="stat-chart"></stats-chart>
-    <helper-shots-chart v-bind:sortedStats="sortedStats" class="stat-chart"></helper-shots-chart>
+    <stats-chart v-if="sortedStats.length" v-bind:sortedStats="sortedStats" class="stat-chart"></stats-chart>
+    <helper-shots-chart v-if="sortedStats.length" v-bind:sortedStats="sortedStats" class="stat-chart"></helper-shots-chart>
 
     <button v-show="!adding" @click="toggle" class="btn btn-success mobile-button util-margin-20">&#43; New Session</button>
     <div  v-show="adding" class="form-row">
