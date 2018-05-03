@@ -231,10 +231,4 @@ input[type="color"] {
 .stat-chart {
   margin: 30px auto;
 }
-
-table {
-  margin: 10px;
-  width: auto;
-  max-width: none;
-}
 </style>
