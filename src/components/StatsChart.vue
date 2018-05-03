@@ -1,5 +1,4 @@
 <script>
-// https://github.com/apertureless/vue-chartjs
 
 import { Line } from 'vue-chartjs'
 

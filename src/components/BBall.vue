@@ -53,7 +53,7 @@
           <th>Right</th>
         </tr>
         <tr>
-          <th>Average</th>
+          <th>Avg</th>
           <th>{{ getAvg(this.sortedStats, 'of10') }}</th>
           <th>{{ getAvg(this.sortedStats, 'legit') }}</th>
           <th>{{ getAvg(this.sortedStats, 'short') }}</th>
@@ -64,7 +64,7 @@
       </thead>
       <tbody>
         <tr v-if="sortedStats.length">
-          <td>{{ sortedStats[0].date }}</td>
+          <td>{{ shortDate(sortedStats[0].date) }}</td>
           <td v-bind:class="getColorStatus('of10')">{{ sortedStats[0].of10 }}</td>
           <td v-bind:class="getColorStatus('legit')">{{ sortedStats[0].legit }}</td>
           <td v-bind:class="getColorStatus('short')">{{ sortedStats[0].short }}</td>
@@ -73,7 +73,7 @@
           <td v-bind:class="getColorStatus('right')">{{ sortedStats[0].right }}</td>
         </tr>
         <tr v-for="(stat, index) in sortedStats.slice(1)" :key="index">
-          <td>{{ stat.date }}</td>
+          <td>{{ shortDate(stat.date) }}</td>
           <td>{{ stat.of10 }}</td>
           <td>{{ stat.legit }}</td>
           <td>{{ stat.short }}</td>
@@ -157,6 +157,10 @@ export default {
     },
     getAvg: function (arr, prop) {
       return (arr.reduce((acc, stat) => acc + +stat[prop], 0) / arr.length).toFixed(2)
+    },
+    shortDate: function (date) {
+      const dateItems = date.split('-')
+      return dateItems.slice(1).join('/')
     }
   }
 }
@@ -226,5 +230,11 @@ input[type="color"] {
 
 .stat-chart {
   margin: 30px auto;
+}
+
+table {
+  margin: 10px;
+  width: auto;
+  max-width: none;
 }
 </style>

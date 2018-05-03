@@ -1,5 +1,4 @@
 <script>
-// https://github.com/apertureless/vue-chartjs
 
 import { Line } from 'vue-chartjs'
 
@@ -62,7 +61,6 @@ export default {
   },
   methods: {
     getData: function (prop) {
-      console.log(this.sortedStats.map(stat => stat[prop]).reverse())
       return this.sortedStats.map(stat => stat[prop]).reverse()
     }
   },
