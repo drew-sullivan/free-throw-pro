@@ -5,6 +5,8 @@
       <h1>{{ freeThrowAverage }}%</h1>
     </div>
 
+    <avg-chart v-if="sortedStats.length && runningAverages.length"
+      v-bind:sortedStats="sortedStats" v-bind:runningAverages="runningAverages" class="stat-chart"></avg-chart>
     <stats-chart v-if="sortedStats.length" v-bind:sortedStats="sortedStats" class="stat-chart"></stats-chart>
     <helper-shots-chart v-if="sortedStats.length" v-bind:sortedStats="sortedStats" class="stat-chart"></helper-shots-chart>
 
@@ -87,6 +89,7 @@
 </template>
 
 <script>
+import AvgChart from './AvgChart'
 import StatsChart from './StatsChart'
 import HelperShotsChart from './HelperShotsChart.vue'
 
@@ -94,6 +97,7 @@ export default {
   name: 'BBall',
   props: ['stats'],
   components: {
+    avgChart: AvgChart,
     statsChart: StatsChart,
     helperShotsChart: HelperShotsChart
   },
@@ -118,6 +122,16 @@ export default {
     },
     sortedStats: function () {
       return this.stats.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
+    },
+    runningAverages: function () {
+      const of10Arr = Array.from(this.sortedStats, x => +x.of10).reverse()
+      const runningAverages = []
+      for (let i = 1; i <= of10Arr.length; i++) {
+        let currentArray = of10Arr.slice(0, i)
+        runningAverages.push(+(currentArray.reduce((acc, curr) => acc + curr) / currentArray.length).toFixed(2))
+      }
+      console.log(runningAverages)
+      return runningAverages
     }
   },
   methods: {
