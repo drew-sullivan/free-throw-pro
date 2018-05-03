@@ -10,13 +10,13 @@ export default {
         labels: this.sortedStats.map(stat => stat.date).reverse(),
         datasets: [
           {
-            label: 'Out of 10',
-            fill: false,
+            label: 'Day-to-Day Average',
             borderColor: 'rgba(111, 38, 61, 1)',
+            borderWidth: 4,
             backgroundColor: 'rgba(111, 38, 61, 0.4)',
             pointBackgroundColor: 'rgba(255, 184, 28, 1)',
             pointBorderColor: 'rgba(4, 30, 66, 1)',
-            pointBorderWidth: 3,
+            pointBorderWidth: 2,
             data: this.runningAverages
           }
         ]

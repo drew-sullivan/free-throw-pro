@@ -7,7 +7,6 @@
 
     <avg-chart v-if="sortedStats.length && runningAverages.length"
       v-bind:sortedStats="sortedStats" v-bind:runningAverages="runningAverages" class="stat-chart"></avg-chart>
-    <stats-chart v-if="sortedStats.length" v-bind:sortedStats="sortedStats" class="stat-chart"></stats-chart>
     <helper-shots-chart v-if="sortedStats.length" v-bind:sortedStats="sortedStats" class="stat-chart"></helper-shots-chart>
 
     <button v-show="!adding" @click="toggle" class="btn btn-success mobile-button util-margin-20">&#43; New Session</button>
@@ -19,10 +18,6 @@
       <div class="form-group col-md-2">
         <label>Out of 10</label>
         <input class="form-control" type="number" placeholder="Out of 10" name="of10" value="num" v-model="of10">
-      </div>
-      <div class="form-group col-md-2">
-        <label>Legit</label>
-        <input class="form-control" type="number" placeholder="Legit" name="legit" value="num" v-model="legit">
       </div>
       <div class="form-group col-md-2">
         <label>Short</label>
@@ -40,9 +35,14 @@
         <label>Right</label>
         <input class="form-control" type="number" placeholder="Right" name="right" value="num" v-model="right">
       </div>
+      <div class="form-group col-md-2">
+        <label>Legit</label>
+        <input class="form-control" type="number" placeholder="Legit" name="legit" value="num" v-model="legit">
+      </div>
       <button @click="cancel" class="btn btn-secondary mobile-button">Cancel</button>
       <button @click="add" class="btn btn-primary mobile-button">Submit</button>
     </div>
+    <div>{{ focusList }}</div>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -90,7 +90,6 @@
 
 <script>
 import AvgChart from './AvgChart'
-import StatsChart from './StatsChart'
 import HelperShotsChart from './HelperShotsChart.vue'
 
 export default {
@@ -98,7 +97,6 @@ export default {
   props: ['stats'],
   components: {
     avgChart: AvgChart,
-    statsChart: StatsChart,
     helperShotsChart: HelperShotsChart
   },
   data () {
@@ -130,7 +128,6 @@ export default {
         let currentArray = of10Arr.slice(0, i)
         runningAverages.push(+(currentArray.reduce((acc, curr) => acc + curr) / currentArray.length).toFixed(2))
       }
-      console.log(runningAverages)
       return runningAverages
     }
   },
