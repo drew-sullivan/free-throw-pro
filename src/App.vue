@@ -4,7 +4,6 @@
       <div class="navbar-brand abs">Free Throw Pro</div>
     </nav>
     <div id="app" class="container">
-      <stats-chart></stats-chart>
       <bball v-bind:stats="stats" v-on:add-new-data="addNewData($event)"></bball>
     </div>
   </div>
@@ -12,7 +11,6 @@
 
 <script>
 import BBall from './components/BBall'
-import StatsChart from './components/StatsChart'
 import Firebase from 'firebase'
 
 let config = {
@@ -32,8 +30,7 @@ export default {
     stats: statsRef
   },
   components: {
-    bball: BBall,
-    statsChart: StatsChart
+    bball: BBall
   },
   methods: {
     addNewData: function (newStats) {
