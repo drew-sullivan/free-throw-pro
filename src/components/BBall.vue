@@ -5,6 +5,11 @@
       <h1>{{ freeThrowAverage }}%</h1>
     </div>
 
+    <ol class="list-group list-group-flush top-label">Skills to focus on:
+      <li class="list-group-item" v-for="(item, i) in focusList" :key="i">{{ item }}
+      </li>
+    </ol>
+
     <avg-chart v-if="sortedStats.length && runningAverages.length"
       v-bind:sortedStats="sortedStats" v-bind:runningAverages="runningAverages" class="stat-chart"></avg-chart>
     <helper-shots-chart v-if="sortedStats.length" v-bind:sortedStats="sortedStats" class="stat-chart"></helper-shots-chart>
@@ -111,13 +116,17 @@ export default {
         runningAverages.push(+(currentArray.reduce((acc, curr) => acc + curr) / currentArray.length).toFixed(2))
       }
       return runningAverages
+    },
+    focusList: function () {
+      const focusList = []
+      for (let i = 0; i < this.shotTypes.length; i++) {
+        let shotType = this.shotTypes[i]
+        if (shotType !== 'of10' && +this.sortedStats[0][shotType] >= +this.getAvg(shotType)) {
+          focusList.push(shotType)
+        }
+      }
+      return focusList
     }
-    // focusList: function () {
-    //   const focusList = []
-    //   for (let i = 0; i < this.stats.length; i++) {
-    //     if (this.shotTypes[i] >= this.getAvg()
-    //   }
-    // }
   },
   methods: {
     add: function () {
@@ -142,7 +151,7 @@ export default {
     },
     getColorStatus: function (prop) {
       const stat = this.sortedStats[0][prop]
-      const avg = this.getAvg(this.stats, prop)
+      const avg = this.getAvg(prop)
       if (prop === 'of10') {
         return {
           positive: +stat > +avg,
@@ -177,14 +186,6 @@ export default {
 <style scoped>
 h1, h2 {
   font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
 }
 a {
   color: #42b983;
