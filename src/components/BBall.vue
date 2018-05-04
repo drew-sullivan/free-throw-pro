@@ -5,10 +5,12 @@
       <h1>{{ freeThrowAverage }}%</h1>
     </div>
 
-    <ol class="list-group list-group-flush top-label">Skills to focus on:
-      <li class="list-group-item" v-for="(item, i) in focusList" :key="i">{{ item }}
-      </li>
-    </ol>
+    <p class="top-label">Skills to focus on:</p>
+
+    <div class="focus-item" v-for="(item, i) in focusList" :key="i">
+      <img class="mr-3" src="../../static/favicon.png" alt="Generic placeholder image">
+      <span>{{ item | caps }}</span>
+    </div>
 
     <avg-chart v-if="sortedStats.length && runningAverages.length"
       v-bind:sortedStats="sortedStats" v-bind:runningAverages="runningAverages" class="stat-chart"></avg-chart>
@@ -187,6 +189,7 @@ export default {
 h1, h2 {
   font-weight: normal;
 }
+
 a {
   color: #42b983;
 }
@@ -221,7 +224,7 @@ label {
 }
 
 input[type="date"] {
-  display:block;
+  display: block;
   -webkit-appearance: textfield;
   -moz-appearance: textfield;
   min-height: 1.2em;
@@ -238,5 +241,26 @@ input[type="color"] {
 
 .stat-chart {
   margin: 30px auto;
+}
+
+ul {
+  list-style-image: url('../../static/favicon.png');
+}
+
+.focus-item {
+  margin: 15px auto;
+}
+
+.focus-item img {
+  height: 20px;
+  width: 20px;
+  float: left;
+  margin-left: 30%;
+  margin-top: 16px;
+}
+
+.focus-item span {
+  margin-right: 30%;
+  font-size: 35px;
 }
 </style>
