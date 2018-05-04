@@ -50,7 +50,7 @@
         </tr>
         <tr>
           <th class="title">Avg</th>
-          <th v-for="(shotType, i) in shotTypes" :key="i">{{ getAvg(sortedStats, shotType) }}</th>
+          <th v-for="(shotType, i) in shotTypes" :key="i">{{ getAvg(shotType) }}</th>
         </tr>
       </thead>
       <tbody>
@@ -95,7 +95,7 @@ export default {
   },
   computed: {
     freeThrowAverage: function () {
-      return this.getAvg(this.stats, 'of10') * 10
+      return this.getAvg('of10') * 10
     },
     statsLen: function () {
       return this.stats.length - 1
@@ -112,6 +112,12 @@ export default {
       }
       return runningAverages
     }
+    // focusList: function () {
+    //   const focusList = []
+    //   for (let i = 0; i < this.stats.length; i++) {
+    //     if (this.shotTypes[i] >= this.getAvg()
+    //   }
+    // }
   },
   methods: {
     add: function () {
@@ -149,7 +155,8 @@ export default {
         }
       }
     },
-    getAvg: function (arr, prop) {
+    getAvg: function (prop) {
+      const arr = this.stats
       return (arr.reduce((acc, stat) => acc + +stat[prop], 0) / arr.length).toFixed(2)
     }
   },
@@ -231,9 +238,4 @@ input[type="color"] {
 .stat-chart {
   margin: 30px auto;
 }
-
-/* .title {
-  font-size: 10px;
-  letter-spacing: 1px;
-} */
 </style>
