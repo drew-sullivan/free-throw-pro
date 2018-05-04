@@ -53,6 +53,7 @@ export default {
       }
       this.toggle()
       this.$emit('add-new-data', newData)
+      location.reload()
     },
     cancel: function () {
       this.toggle()
