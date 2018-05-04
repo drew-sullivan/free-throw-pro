@@ -63,12 +63,6 @@
         <tr v-for="(stat, index) in sortedStats.slice(1)" :key="index">
           <td>{{ stat.date | shortDate}}</td>
           <td v-for="(shotType, i) in shotTypes" :key="i">{{ stat[shotType] }}</td>
-          <!-- <td>{{ stat.of10 }}</td> -->
-          <!-- <td>{{ stat.short }}</td>
-          <td>{{ stat.long }}</td>
-          <td>{{ stat.left }}</td>
-          <td>{{ stat.right }}</td>
-          <td>{{ stat.legit }}</td> -->
         </tr>
       </tbody>
     </table>
