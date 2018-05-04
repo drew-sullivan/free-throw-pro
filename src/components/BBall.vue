@@ -8,8 +8,8 @@
     <p class="top-label">Skills to focus on:</p>
 
     <div class="focus-item" v-for="(item, i) in focusList" :key="i">
-      <img class="mr-3" src="../../static/favicon.png" alt="Generic placeholder image">
-      <span>{{ item | caps }}</span>
+      <img class="mr-3" src="../../static/favicon.png">
+      <span>{{ item | title }}</span>
     </div>
 
     <avg-chart v-if="sortedStats.length && runningAverages.length"
@@ -53,7 +53,7 @@
       <thead>
         <tr>
           <th></th>
-          <th v-for="(shotType, i) in shotTypes" :key="i" class="title">{{ shotType | caps }}</th>
+          <th v-for="(shotType, i) in shotTypes" :key="i" class="title">{{ shotType | title }}</th>
         </tr>
         <tr>
           <th class="title">Avg</th>
@@ -172,7 +172,7 @@ export default {
     }
   },
   filters: {
-    caps: function (str) {
+    title: function (str) {
       if (str === 'of10') {
         return 'Of 10'
       }

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <nav class="navbar navbar-light">
+    <nav class="navbar navbar-light bg-light">
+      <a class="navbar-brand" href="#">
+        <img src="../static/favicon.png" width="40" height="40" class="d-inline-block align-top">
+      </a>
       <div class="navbar-brand abs">Free Throw Pro</div>
     </nav>
     <div id="app" class="container">
@@ -63,10 +66,7 @@ export default {
 }
 
 .navbar-brand.abs {
-  position: absolute;
-  width: 100%;
-  left: 0;
-  text-align: center;
+  padding-left: 5px;
   color: #FFB81C;
   line-height: 35px;
   font-size: 40px;
@@ -81,5 +81,17 @@ h1 {
 
 .table {
   margin-top: 20px;
+}
+
+.title-icon {
+  height: 50px;
+  width: 50px;
+}
+
+.navbar a {
+  padding-left: 42px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-top: 11px;
 }
 </style>
