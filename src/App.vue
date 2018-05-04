@@ -70,7 +70,7 @@ export default {
   color: #FFB81C;
   line-height: 35px;
   font-size: 40px;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif !important;
 }
 
 h1 {
