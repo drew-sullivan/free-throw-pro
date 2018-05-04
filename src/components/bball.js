@@ -10,6 +10,7 @@ export default {
   },
   data () {
     return {
+      shotTypes: ['of10', 'short', 'long', 'left', 'right', 'legit'],
       adding: false,
       date: '',
       legit: 0,
@@ -78,9 +79,17 @@ export default {
     },
     getAvg: function (arr, prop) {
       return (arr.reduce((acc, stat) => acc + +stat[prop], 0) / arr.length).toFixed(2)
+    }
+  },
+  filters: {
+    caps: function (str) {
+      if (str === 'of10') {
+        return 'OF 10'
+      }
+      return str.toUpperCase()
     },
-    shortDate: function (date) {
-      const dateItems = date.split('-')
+    shortDate: function (dateString) {
+      const dateItems = dateString.split('-')
       return dateItems.slice(1).join('/')
     }
   }
