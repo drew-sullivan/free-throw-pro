@@ -46,41 +46,23 @@
       <thead>
         <tr>
           <th></th>
-          <th>of 10</th>
-          <th>Legit</th>
-          <th>Short</th>
-          <th>Long</th>
-          <th>Left</th>
-          <th>Right</th>
+          <th v-for="(shotType, i) in shotTypes" :key="i">{{ shotType | caps }}</th>
         </tr>
         <tr>
-          <th>Avg</th>
-          <th>{{ getAvg(this.sortedStats, 'of10') }}</th>
-          <th>{{ getAvg(this.sortedStats, 'legit') }}</th>
-          <th>{{ getAvg(this.sortedStats, 'short') }}</th>
-          <th>{{ getAvg(this.sortedStats, 'long') }}</th>
-          <th>{{ getAvg(this.sortedStats, 'left') }}</th>
-          <th>{{ getAvg(this.sortedStats, 'right') }}</th>
+          <th>AVG</th>
+          <th v-for="(shotType, i) in shotTypes" :key="i">{{ getAvg(sortedStats, shotType) }}</th>
         </tr>
       </thead>
       <tbody>
         <tr v-if="sortedStats.length">
-          <td>{{ shortDate(sortedStats[0].date) }}</td>
-          <td v-bind:class="getColorStatus('of10')">{{ sortedStats[0].of10 }}</td>
-          <td v-bind:class="getColorStatus('legit')">{{ sortedStats[0].legit }}</td>
-          <td v-bind:class="getColorStatus('short')">{{ sortedStats[0].short }}</td>
-          <td v-bind:class="getColorStatus('long')">{{ sortedStats[0].long }}</td>
-          <td v-bind:class="getColorStatus('left')">{{ sortedStats[0].left }}</td>
-          <td v-bind:class="getColorStatus('right')">{{ sortedStats[0].right }}</td>
+          <td>{{ sortedStats[0].date | shortDate }}</td>
+          <td v-for="(shotType, i) in shotTypes" :key="i" v-bind:class="getColorStatus(shotType)">
+            {{ sortedStats[0][shotType] }}
+          </td>
         </tr>
         <tr v-for="(stat, index) in sortedStats.slice(1)" :key="index">
-          <td>{{ shortDate(stat.date) }}</td>
-          <td>{{ stat.of10 }}</td>
-          <td>{{ stat.legit }}</td>
-          <td>{{ stat.short }}</td>
-          <td>{{ stat.long }}</td>
-          <td>{{ stat.left }}</td>
-          <td>{{ stat.right }}</td>
+          <td>{{ stat.date | shortDate}}</td>
+          <td v-for="(shotType, i) in shotTypes" :key="i">{{ stat[shotType] }}</td>
         </tr>
       </tbody>
     </table>
