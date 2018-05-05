@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="color-box"></div>
     <nav class="navbar navbar-light bg-light">
       <a class="navbar-brand" href="#">
         <img src="../static/favicon.png" width="40" height="40" class="d-inline-block align-top">
@@ -44,6 +45,8 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -61,16 +64,17 @@ export default {
   height: 80px;
   background-color: #6F263D;
   margin-bottom: 0;
-  border-bottom: 5px solid #FFB81C;
-  border-top: 10px solid #041E42;
+  /* border-bottom: 5px solid #FFB81C; */
+  border-top: 5px solid #041E42;
 }
 
 .navbar-brand.abs {
   padding-left: 5px;
   color: #FFB81C;
   line-height: 35px;
-  font-size: 40px;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif !important;
+  font-size: 37px;
+  font-family: 'Permanent Marker', cursive;
+
 }
 
 h1 {
@@ -89,9 +93,15 @@ h1 {
 }
 
 .navbar a {
-  padding-left: 42px;
+  padding-left: 16px;
   padding-right: 0px;
   padding-bottom: 0px;
   padding-top: 11px;
+}
+
+.color-box {
+  height: 10px;
+  width: 100%;
+  background-color: #FFB81C;
 }
 </style>
