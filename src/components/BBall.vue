@@ -6,7 +6,6 @@
     </div>
 
     <p class="top-label">Skills to focus on:</p>
-
     <div class="focus-item" v-for="(item, i) in focusList" :key="i">
       <img class="mr-3" src="../../static/favicon.png">
       <span>{{ item | title }}</span>
@@ -77,6 +76,8 @@
 </template>
 
 <script>
+import moment from 'moment'
+
 import AvgChart from './AvgChart'
 import HelperShotsChart from './HelperShotsChart.vue'
 
@@ -102,7 +103,7 @@ export default {
   },
   computed: {
     freeThrowAverage: function () {
-      return this.getAvg('of10') * 10
+      return (this.getAvg('of10') * 10).toFixed(2)
     },
     statsLen: function () {
       return this.stats.length - 1
@@ -132,6 +133,7 @@ export default {
   },
   methods: {
     add: function () {
+      this.date = moment().format('X')
       const newData = {
         date: this.date,
         legit: this.legit,
@@ -143,7 +145,7 @@ export default {
       }
       this.toggle()
       this.$emit('add-new-data', newData)
-      location.reload()
+      // location.reload()
     },
     cancel: function () {
       this.toggle()
@@ -179,8 +181,13 @@ export default {
       return str.charAt(0).toUpperCase() + str.slice(1)
     },
     shortDate: function (dateString) {
-      const dateItems = dateString.split('-')
-      return dateItems.slice(1).join('/')
+      if (dateString.includes('-')) {
+        const dateItems = dateString.split('-')
+        return dateItems.slice(1).join('/')
+      } else {
+        console.log(moment(dateString, 'MM/DD'))
+        return moment(dateString, 'MM/DD').toString()
+      }
     }
   }
 }
