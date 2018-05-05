@@ -5,6 +5,36 @@
       <h1>{{ freeThrowAverage }}%</h1>
     </div>
 
+    <button v-show="!adding" @click="toggle" class="btn btn-success mobile-button util-margin-20">&#43; New Session</button>
+    <div  v-show="adding" class="form-row">
+      <div class="form-group col-md-2 col-xs-4">
+        <label>Out of 10</label>
+        <input class="form-control" type="number" placeholder="Out of 10" name="of10" value="num" v-model="of10">
+      </div>
+      <div class="form-group col-md-2 col-xs-4">
+        <label>Short</label>
+        <input class="form-control" type="number" placeholder="Short" name="short" value="num" v-model="short">
+      </div>
+      <div class="form-group col-md-2 col-xs-4">
+        <label>Long</label>
+        <input class="form-control" type="number" placeholder="Long" name="long" value="num" v-model="long">
+      </div>
+      <div class="form-group col-md-2 col-xs-4">
+        <label>Left</label>
+        <input class="form-control" type="number" placeholder="Left" name="left" value="num" v-model="left">
+      </div>
+      <div class="form-group col-md-2 col-xs-4">
+        <label>Right</label>
+        <input class="form-control" type="number" placeholder="Right" name="right" value="num" v-model="right">
+      </div>
+      <div class="form-group col-md-2 col-xs-4">
+        <label>Legit</label>
+        <input class="form-control" type="number" placeholder="Legit" name="legit" value="num" v-model="legit">
+      </div>
+      <button @click="cancel" class="btn btn-secondary mobile-button">Cancel</button>
+      <button @click="add" class="btn btn-primary mobile-button">Submit</button>
+    </div>
+
     <p class="top-label">Skills to focus on:</p>
     <div class="focus-item" v-for="(item, i) in focusList" :key="i">
       <img class="mr-3" src="../../static/favicon.png">
@@ -15,35 +45,6 @@
       v-bind:sortedStats="sortedStats" v-bind:runningAverages="runningAverages" class="stat-chart"></avg-chart>
     <helper-shots-chart v-if="sortedStats.length" v-bind:sortedStats="sortedStats" class="stat-chart"></helper-shots-chart>
 
-    <button v-show="!adding" @click="toggle" class="btn btn-success mobile-button util-margin-20">&#43; New Session</button>
-    <div  v-show="adding" class="form-row">
-      <div class="form-group col-md-2">
-        <label>Out of 10</label>
-        <input class="form-control" type="number" placeholder="Out of 10" name="of10" value="num" v-model="of10">
-      </div>
-      <div class="form-group col-md-2">
-        <label>Short</label>
-        <input class="form-control" type="number" placeholder="Short" name="short" value="num" v-model="short">
-      </div>
-      <div class="form-group col-md-2">
-        <label>Long</label>
-        <input class="form-control" type="number" placeholder="Long" name="long" value="num" v-model="long">
-      </div>
-      <div class="form-group col-md-2">
-        <label>Left</label>
-        <input class="form-control" type="number" placeholder="Left" name="left" value="num" v-model="left">
-      </div>
-      <div class="form-group col-md-2">
-        <label>Right</label>
-        <input class="form-control" type="number" placeholder="Right" name="right" value="num" v-model="right">
-      </div>
-      <div class="form-group col-md-2">
-        <label>Legit</label>
-        <input class="form-control" type="number" placeholder="Legit" name="legit" value="num" v-model="legit">
-      </div>
-      <button @click="cancel" class="btn btn-secondary mobile-button">Cancel</button>
-      <button @click="add" class="btn btn-primary mobile-button">Submit</button>
-    </div>
     <table class="table table-striped">
       <thead>
         <tr>
