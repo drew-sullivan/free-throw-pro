@@ -18,10 +18,6 @@
     <button v-show="!adding" @click="toggle" class="btn btn-success mobile-button util-margin-20">&#43; New Session</button>
     <div  v-show="adding" class="form-row">
       <div class="form-group col-md-2">
-        <label>Date</label>
-        <input type="date" placeholder="date" name="date" value="date" v-model="date" class="form-control">
-      </div>
-      <div class="form-group col-md-2">
         <label>Out of 10</label>
         <input class="form-control" type="number" placeholder="Out of 10" name="of10" value="num" v-model="of10">
       </div>
@@ -133,7 +129,7 @@ export default {
   },
   methods: {
     add: function () {
-      this.date = moment().format('X')
+      this.date = moment().format()
       const newData = {
         date: this.date,
         legit: this.legit,
@@ -144,8 +140,9 @@ export default {
         right: this.right
       }
       this.toggle()
+      console.log(newData)
       this.$emit('add-new-data', newData)
-      // location.reload()
+      location.reload()
     },
     cancel: function () {
       this.toggle()
@@ -181,13 +178,9 @@ export default {
       return str.charAt(0).toUpperCase() + str.slice(1)
     },
     shortDate: function (dateString) {
-      if (dateString.includes('-')) {
-        const dateItems = dateString.split('-')
-        return dateItems.slice(1).join('/')
-      } else {
-        console.log(moment(dateString, 'MM/DD'))
-        return moment(dateString, 'MM/DD').toString()
-      }
+      const dateItems = dateString.split('T')
+      const monthDay = dateItems[0].split('-')
+      return monthDay.slice(1).join('/')
     }
   }
 }
