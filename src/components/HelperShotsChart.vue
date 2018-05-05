@@ -61,7 +61,15 @@ export default {
   },
   methods: {
     getData: function (prop) {
+      if (prop === 'date') {
+        return this.sortedStats.map(stat => this.shortDate(stat[prop])).reverse()
+      }
       return this.sortedStats.map(stat => stat[prop]).reverse()
+    },
+    shortDate: function (dateString) {
+      const dateItems = dateString.split('T')
+      const monthDay = dateItems[0].split('-')
+      return monthDay.slice(1).join('/')
     }
   },
   mounted: function () {

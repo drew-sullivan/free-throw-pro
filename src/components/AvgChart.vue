@@ -7,7 +7,7 @@ export default {
   data () {
     return {
       datacollection: {
-        labels: this.sortedStats.map(stat => stat.date).reverse(),
+        labels: this.sortedStats.map(stat => this.shortDate(stat.date)).reverse(),
         datasets: [
           {
             label: 'Day-to-Day Average',
@@ -25,6 +25,13 @@ export default {
   },
   mounted () {
     this.renderChart(this.datacollection)
+  },
+  methods: {
+    shortDate: function (dateString) {
+      const dateItems = dateString.split('T')
+      const monthDay = dateItems[0].split('-')
+      return monthDay.slice(1).join('/')
+    }
   }
 }
 </script>
