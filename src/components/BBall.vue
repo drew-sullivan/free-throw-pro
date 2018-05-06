@@ -58,13 +58,13 @@
       </thead>
       <tbody>
         <tr v-if="sortedStats.length">
-          <td>{{ sortedStats[0].date | shortDate }}</td>
+          <td>S.{{ sortedStats.length }}</td>
           <td v-for="(shotType, i) in shotTypes" :key="i" v-bind:class="getColorStatus(shotType)">
             {{ sortedStats[0][shotType] }}
           </td>
         </tr>
         <tr v-for="(stat, index) in sortedStats.slice(1)" :key="index">
-          <td>{{ stat.date | shortDate}}</td>
+          <td>S.{{ sortedStats.length - 1 - index }}</td>
           <td v-for="(shotType, i) in shotTypes" :key="i">{{ stat[shotType] }}</td>
         </tr>
       </tbody>

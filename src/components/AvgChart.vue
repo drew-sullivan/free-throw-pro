@@ -7,7 +7,7 @@ export default {
   data () {
     return {
       datacollection: {
-        labels: this.sortedStats.map(stat => this.shortDate(stat.date)).reverse(),
+        labels: this.sortedStats.map((stat, i) => `S.${i + 1}`),
         datasets: [
           {
             label: 'Day-to-Day Average',
