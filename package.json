@@ -19,6 +19,7 @@
     "firebase": "^4.13.1",
     "moment": "^2.22.1",
     "npm": "^6.0.0",
+    "regression": "^2.0.1",
     "vue": "^2.5.2",
     "vue-chartjs": "^3.3.1",
     "vue-router": "^3.0.1",
