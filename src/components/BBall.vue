@@ -1,9 +1,11 @@
 <template>
   <div>
     <div v-if="sortedStats.length">
-      <p class="top-label">Free Throw Average</p>
+      <p class="section-title top-label">Free Throw Average</p>
       <h1>{{ freeThrowAverage }}%</h1>
     </div>
+
+    <p class="section-title">{{ getNumSessionsRemaining }}</p>
 
     <button v-show="!adding" @click="toggle" class="btn btn-success mobile-button util-margin-20">&#43; New Session</button>
     <div  v-show="adding" class="form-row">
@@ -35,7 +37,7 @@
       <button @click="add" class="btn btn-primary mobile-button">Submit</button>
     </div>
 
-    <p class="top-label">Skills to focus on:</p>
+    <p class="section-title top-label">Skills to focus on:</p>
     <div class="focus-item" v-for="(item, i) in focusList" :key="i">
       <img class="mr-3" src="../../static/favicon.png">
       <span>{{ item | title }}</span>
@@ -74,6 +76,7 @@
 
 <script>
 import moment from 'moment'
+import regression from 'regression'
 
 import AvgChart from './AvgChart'
 import HelperShotsChart from './HelperShotsChart.vue'
@@ -81,6 +84,9 @@ import HelperShotsChart from './HelperShotsChart.vue'
 export default {
   name: 'BBall',
   props: ['stats'],
+  created () {
+    this.getNumSessionsRemaining()
+  },
   components: {
     avgChart: AvgChart,
     helperShotsChart: HelperShotsChart
@@ -126,6 +132,17 @@ export default {
         }
       }
       return focusList
+    },
+    getNumSessionsRemaining: function () {
+      const regressionObj = regression.linear(this.stats.map((stat, index) => [index, +stat['of10']]))
+      const m = regressionObj.equation[0]
+      const b = regressionObj.equation[1]
+      const numSessionsRemaining = (10 - b) / m
+      if (numSessionsRemaining < 1) {
+        return 'Calculating - keep playing!'
+      } else {
+        return `Only ${numSessionsRemaining} sessions remaining!`
+      }
     }
   },
   methods: {
@@ -208,9 +225,12 @@ label {
 }
 
 .top-label {
+  margin: 20px auto -10px auto !important;
+}
+
+.section-title {
   font-size: 20px;
   color: #878787;
-  margin: 20px auto -10px auto !important;
 }
 
 .util-margin-20 {

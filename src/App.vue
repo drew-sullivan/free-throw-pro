@@ -64,7 +64,6 @@ export default {
   height: 80px;
   background-color: #6F263D;
   margin-bottom: 0;
-  /* border-bottom: 5px solid #FFB81C; */
   border-top: 5px solid #041E42;
 }
 
@@ -74,7 +73,6 @@ export default {
   line-height: 35px;
   font-size: 37px;
   font-family: 'Permanent Marker', cursive;
-
 }
 
 h1 {

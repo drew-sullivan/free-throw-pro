@@ -63,7 +63,6 @@ export default {
     getData: function (prop) {
       if (prop === 'date') {
         return this.sortedStats.map((stat, i) => `S.${i + 1}`)
-
       }
       return this.sortedStats.map(stat => stat[prop]).reverse()
     },
