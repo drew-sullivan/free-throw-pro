@@ -45,7 +45,7 @@
     </div>
 
     <p class="section-title top-label">Shots to focus on:</p>
-    <div class="focus-item" v-for="(item, i) in focusList" :key="i">
+    <div class="focus-item" v-if="sortedStats.length" v-for="(item, i) in focusList" :key="i">
       <img class="mr-3" src="../../static/favicon.png">
       <span>{{ item | title }}</span>
     </div>
@@ -146,7 +146,6 @@ let statsRef = db.ref('stats')
 
 export default {
   name: 'BBall',
-  // props: ['stats'],
   firebase: {
     stats: statsRef
   },
@@ -175,7 +174,6 @@ export default {
       return this.stats.length - 1
     },
     sortedStats: function () {
-      console.log(this.stats.slice().sort((a, b) => new Date(b.date) - new Date(a.date)))
       return this.stats.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
     },
     runningAverages: function () {
@@ -203,7 +201,7 @@ export default {
       const b = regObj.equation[1]
       const numSessionsRemaining = (10 - b) / m
       if (numSessionsRemaining < 1) {
-        return 'Calculating - keep playing!'
+        return 'Calculating number of sessions remaining'
       } else {
         return `Only ${numSessionsRemaining} sessions remaining!`
       }
