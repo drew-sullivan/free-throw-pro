@@ -131,9 +131,25 @@ import regression from 'regression'
 import AvgChart from './AvgChart'
 import HelperShotsChart from './HelperShotsChart.vue'
 
+import Firebase from 'firebase'
+
+let config = {
+  apiKey: 'AIzaSyBqSI9c69b6k8-ozjv9lxmrvm9dAghgstc',
+  authDomain: 'free-throw-pro.firebaseapp.com',
+  databaseURL: 'https://free-throw-pro.firebaseio.com',
+  storageBucket: 'free-throw-pro.appspot.com',
+  messagingSenderId: '607926992175'
+}
+let app = Firebase.initializeApp(config)
+let db = app.database()
+let statsRef = db.ref('stats')
+
 export default {
   name: 'BBall',
-  props: ['stats'],
+  // props: ['stats'],
+  firebase: {
+    stats: statsRef
+  },
   components: {
     avgChart: AvgChart,
     helperShotsChart: HelperShotsChart
@@ -159,6 +175,7 @@ export default {
       return this.stats.length - 1
     },
     sortedStats: function () {
+      console.log(this.stats.slice().sort((a, b) => new Date(b.date) - new Date(a.date)))
       return this.stats.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
     },
     runningAverages: function () {
@@ -241,6 +258,9 @@ export default {
     getRegressionObject: function (prop) {
       const regressionObj = regression.linear(this.stats.map((stat, index) => [index, +stat[prop]]))
       return regressionObj
+    },
+    addNewData: function (newStats) {
+      statsRef.push(newStats)
     }
   },
   filters: {

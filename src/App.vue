@@ -7,11 +7,11 @@
     <router-link to="/bball">Bball</router-link>
     <hr>
 
-    <router-view></router-view>
-
     <div id="app" class="container">
-      <bball v-bind:stats="stats" v-on:add-new-data="addNewData($event)"></bball>
+      <router-view></router-view>
     </div>
+
+      <!-- <bball v-bind:stats="stats" v-on:add-new-data="addNewData($event)"></bball> -->
 
   </div>
 </template>
@@ -19,32 +19,32 @@
 <script>
 import Navbar from './components/Navbar'
 import BBall from './components/BBall'
-import Firebase from 'firebase'
+// import Firebase from 'firebase'
 
-let config = {
-  apiKey: 'AIzaSyBqSI9c69b6k8-ozjv9lxmrvm9dAghgstc',
-  authDomain: 'free-throw-pro.firebaseapp.com',
-  databaseURL: 'https://free-throw-pro.firebaseio.com',
-  storageBucket: 'free-throw-pro.appspot.com',
-  messagingSenderId: '607926992175'
-}
-let app = Firebase.initializeApp(config)
-let db = app.database()
-let statsRef = db.ref('stats')
+// let config = {
+//   apiKey: 'AIzaSyBqSI9c69b6k8-ozjv9lxmrvm9dAghgstc',
+//   authDomain: 'free-throw-pro.firebaseapp.com',
+//   databaseURL: 'https://free-throw-pro.firebaseio.com',
+//   storageBucket: 'free-throw-pro.appspot.com',
+//   messagingSenderId: '607926992175'
+// }
+// let app = Firebase.initializeApp(config)
+// let db = app.database()
+// let statsRef = db.ref('stats')
 
 export default {
   name: 'App',
-  firebase: {
-    stats: statsRef
-  },
+  // firebase: {
+  //   stats: statsRef
+  // },
   components: {
     bball: BBall,
     navbar: Navbar
   },
   methods: {
-    addNewData: function (newStats) {
-      statsRef.push(newStats)
-    }
+    // addNewData: function (newStats) {
+    //   statsRef.push(newStats)
+    // }
   }
 }
 </script>
