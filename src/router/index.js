@@ -6,10 +6,9 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    {
-      path: '/',
-      name: 'BBall',
-      component: BBall
-    }
-  ]
+    { path: '/', name: 'BBall', component: BBall },
+    { path: '/bball', name: 'BBall', component: BBall }
+    // { path: '/login', name: 'Login', component: Login}
+  ],
+  mode: 'history'
 })

@@ -259,6 +259,12 @@ export default {
 }
 </script>
 <style scoped>
+h1 {
+  font-size: 100px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
 h1, h2 {
   font-weight: normal;
 }
