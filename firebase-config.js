@@ -1,4 +1,4 @@
-import Firebase from 'firebase'
+import firebase from 'firebase'
 
 const config = {
   apiKey: 'AIzaSyBqSI9c69b6k8-ozjv9lxmrvm9dAghgstc',
@@ -7,7 +7,8 @@ const config = {
   storageBucket: 'free-throw-pro.appspot.com',
   messagingSenderId: '607926992175'
 }
-const app = Firebase.initializeApp(config)
+const app = firebase.initializeApp(config)
+
 const db = app.database()
 let statsRef;
 
