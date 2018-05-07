@@ -1,6 +1,6 @@
 <template>
   <div>
-    
+
     <nav>
       <div class="col-xs-6 nav">cat</div>
       <div @click="logout" class="col-xs-6 nav logout">Logout&nbsp;&nbsp;<i class="fa fa-sign-out" aria-hidden="true"></i></div>
@@ -18,7 +18,7 @@
       <span class="progress-desc">&nbsp;Baskets/Session</span>
     </h2>
 
-    <p class="section-title">{{ getNumSessionsRemaining }}</p>
+    <p class="section-title">{{ numSessionsRemaining }}</p>
 
     <button v-show="!adding" @click="toggle" class="btn btn-success mobile-button util-margin-20">&#43; New Session</button>
     <div  v-show="adding" class="form-row">
@@ -193,15 +193,15 @@ export default {
       }
       return focusList
     },
-    getNumSessionsRemaining: function () {
+    numSessionsRemaining: function () {
       const regObj = this.getRegressionObject('of10')
       const m = regObj.equation[0]
       const b = regObj.equation[1]
-      const numSessionsRemaining = (10 - b) / m
+      const numSessionsRemaining = Math.ceil((10 - b) / m)
       if (numSessionsRemaining < 1) {
         return 'Calculating number of sessions remaining'
       } else {
-        return `Only ${numSessionsRemaining} sessions remaining!`
+        return `≈ ${numSessionsRemaining} sessions remaining`
       }
     },
     progress: function () {
