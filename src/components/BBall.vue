@@ -45,7 +45,7 @@
     </div>
 
     <p class="section-title top-label">Shots to focus on:</p>
-    <div class="focus-item" v-if="sortedStats.length" v-for="(item, i) in focusList" :key="i">
+    <div class="focus-item" v-for="(item, i) in focusList" :key="i">
       <img class="mr-3" src="../../static/favicon.png">
       <span>{{ item | title }}</span>
     </div>
@@ -207,6 +207,7 @@ export default {
       }
     },
     progress: function () {
+      console.log(this.sortedStats[0])
       const regObj = this.getRegressionObject('of10')
       const m = regObj.equation[0]
       return m
