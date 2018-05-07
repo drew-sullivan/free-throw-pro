@@ -5,6 +5,13 @@
       <h1>{{ freeThrowAverage }}%</h1>
     </div>
 
+    <h2>
+      <i v-if="progress > 0" class="fa fa-arrow-up"></i>
+      <i v-else class="fa fa-arrow-down"></i>
+      {{ progress }}
+      <span class="progress-desc">&nbsp;Baskets/Session</span>
+    </h2>
+
     <p class="section-title">{{ getNumSessionsRemaining }}</p>
 
     <button v-show="!adding" @click="toggle" class="btn btn-success mobile-button util-margin-20">&#43; New Session</button>
@@ -84,9 +91,6 @@ import HelperShotsChart from './HelperShotsChart.vue'
 export default {
   name: 'BBall',
   props: ['stats'],
-  created () {
-    this.getNumSessionsRemaining()
-  },
   components: {
     avgChart: AvgChart,
     helperShotsChart: HelperShotsChart
@@ -134,15 +138,20 @@ export default {
       return focusList
     },
     getNumSessionsRemaining: function () {
-      const regressionObj = regression.linear(this.stats.map((stat, index) => [index, +stat['of10']]))
-      const m = regressionObj.equation[0]
-      const b = regressionObj.equation[1]
+      const regObj = this.getRegressionObject('of10')
+      const m = regObj.equation[0]
+      const b = regObj.equation[1]
       const numSessionsRemaining = (10 - b) / m
       if (numSessionsRemaining < 1) {
         return 'Calculating - keep playing!'
       } else {
         return `Only ${numSessionsRemaining} sessions remaining!`
       }
+    },
+    progress: function () {
+      const regObj = this.getRegressionObject('of10')
+      const m = regObj.equation[0]
+      return m
     }
   },
   methods: {
@@ -158,7 +167,6 @@ export default {
         right: this.right
       }
       this.toggle()
-      console.log(newData)
       this.$emit('add-new-data', newData)
       location.reload()
     },
@@ -186,6 +194,10 @@ export default {
     getAvg: function (prop) {
       const arr = this.stats
       return (arr.reduce((acc, stat) => acc + +stat[prop], 0) / arr.length).toFixed(2)
+    },
+    getRegressionObject: function (prop) {
+      const regressionObj = regression.linear(this.stats.map((stat, index) => [index, +stat[prop]]))
+      return regressionObj
     }
   },
   filters: {
@@ -283,5 +295,13 @@ ul {
 .focus-item span {
   margin-right: 30%;
   font-size: 35px;
+}
+
+.fa-arrow-down {
+  color: red;
+}
+
+.fa-arrow-up {
+  color: #00D647;
 }
 </style>
