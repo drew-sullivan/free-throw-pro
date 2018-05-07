@@ -1,7 +1,13 @@
 <template>
   <div>
+    
+    <nav>
+      <div class="col-xs-6 nav">cat</div>
+      <div @click="logout" class="col-xs-6 nav logout">Logout&nbsp;&nbsp;<i class="fa fa-sign-out" aria-hidden="true"></i></div>
+    </nav>
+
     <div v-if="sortedStats.length">
-      <p class="section-title top-label">Free Throw Average</p>
+      <p class="section-title">Free Throw Average</p>
       <h1>{{ freeThrowAverage }}%</h1>
     </div>
 
@@ -121,6 +127,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -130,6 +137,8 @@ import regression from 'regression'
 
 import AvgChart from './AvgChart'
 import HelperShotsChart from './HelperShotsChart.vue'
+
+import firebase from 'firebase'
 
 import statsRef from '../../firebase-config'
 
@@ -198,7 +207,6 @@ export default {
     progress: function () {
       const regObj = this.getRegressionObject('of10')
       const m = regObj.equation[0]
-      console.log(m)
       return m
     }
   },
@@ -249,6 +257,11 @@ export default {
     },
     addNewData: function (newStats) {
       statsRef.push(newStats)
+    },
+    logout: function () {
+      firebase.auth().signOut().then(
+        () => this.$router.replace('login')
+      )
     }
   },
   filters: {
@@ -359,5 +372,14 @@ ul {
 
 .fa-arrow-up {
   color: #00D647;
+}
+
+.nav {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.logout {
+  cursor: pointer;
 }
 </style>
