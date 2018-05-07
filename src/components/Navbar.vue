@@ -6,9 +6,25 @@
         <img src="../../static/favicon.png" width="40" height="40" class="d-inline-block align-top">
       </a>
       <div class="navbar-brand abs">Free Throw Pro</div>
+      <i @click="logout" class="fa fa-sign-out" aria-hidden="true"></i>
     </nav>
   </div>
 </template>
+
+<script>
+import firebase from 'firebase'
+
+export default {
+  name: 'navbar',
+  methods: {
+    logout: function () {
+      firebase.auth().signOut().then(
+        () => this.$router.replace('login')
+      )
+    }
+  }
+}
+</script>
 
 <style scoped>
 .navbar {
@@ -46,5 +62,9 @@
   height: 10px;
   width: 100%;
   background-color: #FFB81C;
+}
+
+.fa-sign-out {
+  color: #FFB81C;
 }
 </style>
