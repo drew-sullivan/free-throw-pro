@@ -50,6 +50,7 @@
       <span>{{ item | title }}</span>
     </div>
 
+    <p class="section-title top-label">Data:</p>
     <div id="accordion">
       <div class="card">
         <div class="card-header" id="avgChartHeading">
