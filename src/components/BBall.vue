@@ -44,40 +44,82 @@
       <button @click="add" class="btn btn-primary mobile-button">Submit</button>
     </div>
 
-    <p class="section-title top-label">Skills to focus on:</p>
+    <p class="section-title top-label">Shots to focus on:</p>
     <div class="focus-item" v-for="(item, i) in focusList" :key="i">
       <img class="mr-3" src="../../static/favicon.png">
       <span>{{ item | title }}</span>
     </div>
 
-    <avg-chart v-if="sortedStats.length && runningAverages.length"
-      v-bind:sortedStats="sortedStats" v-bind:runningAverages="runningAverages" class="stat-chart"></avg-chart>
-    <helper-shots-chart v-if="sortedStats.length" v-bind:sortedStats="sortedStats" class="stat-chart"></helper-shots-chart>
-
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th></th>
-          <th v-for="(shotType, i) in shotTypes" :key="i" class="title">{{ shotType | title }}</th>
-        </tr>
-        <tr>
-          <th class="title">Avg</th>
-          <th v-for="(shotType, i) in shotTypes" :key="i">{{ getAvg(shotType) }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-if="sortedStats.length">
-          <td>S.{{ sortedStats.length }}</td>
-          <td v-for="(shotType, i) in shotTypes" :key="i" v-bind:class="getColorStatus(shotType)">
-            {{ sortedStats[0][shotType] }}
-          </td>
-        </tr>
-        <tr v-for="(stat, index) in sortedStats.slice(1)" :key="index">
-          <td>S.{{ sortedStats.length - 1 - index }}</td>
-          <td v-for="(shotType, i) in shotTypes" :key="i">{{ stat[shotType] }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div id="accordion">
+      <div class="card">
+        <div class="card-header" id="avgChartHeading">
+          <h5 class="mb-0">
+            <button class="btn btn-secondary mobile-button collapsed" data-toggle="collapse" data-target="#avgChart">
+              Average
+            </button>
+          </h5>
+        </div>
+        <div id="avgChart" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <avg-chart v-if="sortedStats.length && runningAverages.length"
+                       v-bind:sortedStats="sortedStats" v-bind:runningAverages="runningAverages"
+                       class="stat-chart">
+            </avg-chart>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="helperShotsChartHeading">
+          <h5 class="mb-0">
+            <button class="btn btn-secondary mobile-button llapsed" data-toggle="collapse" data-target="#helperShotsChart">
+              Helper Shots
+            </button>
+          </h5>
+        </div>
+        <div id="helperShotsChart" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <helper-shots-chart v-if="sortedStats.length" v-bind:sortedStats="sortedStats" class="stat-chart"></helper-shots-chart>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="historyTableHeading">
+          <h5 class="mb-0">
+            <button class="btn btn-secondary mobile-button collapsed" data-toggle="collapse" data-target="#historyTable">
+              History
+            </button>
+          </h5>
+        </div>
+        <div id="historyTable" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th v-for="(shotType, i) in shotTypes" :key="i" class="title">{{ shotType | title }}</th>
+                </tr>
+                <tr>
+                  <th class="title">Avg</th>
+                  <th v-for="(shotType, i) in shotTypes" :key="i">{{ getAvg(shotType) }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-if="sortedStats.length">
+                  <td>S.{{ sortedStats.length }}</td>
+                  <td v-for="(shotType, i) in shotTypes" :key="i" v-bind:class="getColorStatus(shotType)">
+                    {{ sortedStats[0][shotType] }}
+                  </td>
+                </tr>
+                <tr v-for="(stat, index) in sortedStats.slice(1)" :key="index">
+                  <td>S.{{ sortedStats.length - 1 - index }}</td>
+                  <td v-for="(shotType, i) in shotTypes" :key="i">{{ stat[shotType] }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -250,7 +292,6 @@ label {
 }
 
 .mobile-button {
-  margin: 5px auto;
   width: 100%;
   height: 60px;
   font-size: 35px;
