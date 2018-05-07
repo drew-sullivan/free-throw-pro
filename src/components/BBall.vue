@@ -196,9 +196,9 @@ export default {
       }
     },
     progress: function () {
-      console.log(this.sortedStats[0])
       const regObj = this.getRegressionObject('of10')
       const m = regObj.equation[0]
+      console.log(m)
       return m
     }
   },

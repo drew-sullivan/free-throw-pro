@@ -6,7 +6,7 @@
         <img src="../../static/favicon.png" width="40" height="40" class="d-inline-block align-top">
       </a>
       <div class="navbar-brand abs">Free Throw Pro</div>
-      <i @click="logout" class="fa fa-sign-out" aria-hidden="true"></i>
+      <i v-if="currentUser" @click="logout" class="fa fa-sign-out"></i>
     </nav>
   </div>
 </template>
@@ -16,6 +16,12 @@ import firebase from 'firebase'
 
 export default {
   name: 'navbar',
+  data () {
+    console.log(this.currentUser)
+    return {
+      currentUser: firebase.auth().currentUser
+    }
+  },
   methods: {
     logout: function () {
       firebase.auth().signOut().then(
@@ -66,5 +72,6 @@ export default {
 
 .fa-sign-out {
   color: #FFB81C;
+  cursor: pointer;
 }
 </style>
