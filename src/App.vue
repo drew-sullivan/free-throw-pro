@@ -1,45 +1,21 @@
 <template>
   <div>
-    <div class="color-box"></div>
-    <nav class="navbar navbar-light bg-light">
-      <a class="navbar-brand" href="#">
-        <img src="../static/favicon.png" width="40" height="40" class="d-inline-block align-top">
-      </a>
-      <div class="navbar-brand abs">Free Throw Pro</div>
-    </nav>
+    <title-navbar></title-navbar>
     <div id="app" class="container">
-      <bball v-bind:stats="stats" v-on:add-new-data="addNewData($event)"></bball>
+      <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script>
+import TitleNavbar from './components/TitleNavbar'
 import BBall from './components/BBall'
-import Firebase from 'firebase'
-
-let config = {
-  apiKey: 'AIzaSyBqSI9c69b6k8-ozjv9lxmrvm9dAghgstc',
-  authDomain: 'free-throw-pro.firebaseapp.com',
-  databaseURL: 'https://free-throw-pro.firebaseio.com',
-  storageBucket: 'free-throw-pro.appspot.com',
-  messagingSenderId: '607926992175'
-}
-let app = Firebase.initializeApp(config)
-let db = app.database()
-let statsRef = db.ref('stats')
 
 export default {
   name: 'App',
-  firebase: {
-    stats: statsRef
-  },
   components: {
-    bball: BBall
-  },
-  methods: {
-    addNewData: function (newStats) {
-      statsRef.push(newStats)
-    }
+    bball: BBall,
+    titleNavbar: TitleNavbar
   }
 }
 </script>
@@ -58,48 +34,5 @@ export default {
 
 .container {
   margin-top: 5px !important;
-}
-
-.navbar {
-  height: 80px;
-  background-color: #6F263D;
-  margin-bottom: 0;
-  border-top: 5px solid #041E42;
-}
-
-.navbar-brand.abs {
-  padding-left: 5px;
-  color: #FFB81C;
-  line-height: 35px;
-  font-size: 37px;
-  font-family: 'Permanent Marker', cursive;
-}
-
-h1 {
-  font-size: 100px;
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-
-.table {
-  margin-top: 20px;
-}
-
-.title-icon {
-  height: 50px;
-  width: 50px;
-}
-
-.navbar a {
-  padding-left: 16px;
-  padding-right: 0px;
-  padding-bottom: 0px;
-  padding-top: 11px;
-}
-
-.color-box {
-  height: 10px;
-  width: 100%;
-  background-color: #FFB81C;
 }
 </style>
