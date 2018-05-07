@@ -131,18 +131,7 @@ import regression from 'regression'
 import AvgChart from './AvgChart'
 import HelperShotsChart from './HelperShotsChart.vue'
 
-import Firebase from 'firebase'
-
-let config = {
-  apiKey: 'AIzaSyBqSI9c69b6k8-ozjv9lxmrvm9dAghgstc',
-  authDomain: 'free-throw-pro.firebaseapp.com',
-  databaseURL: 'https://free-throw-pro.firebaseio.com',
-  storageBucket: 'free-throw-pro.appspot.com',
-  messagingSenderId: '607926992175'
-}
-let app = Firebase.initializeApp(config)
-let db = app.database()
-let statsRef = db.ref('stats')
+import statsRef from '../../firebase-config'
 
 export default {
   name: 'BBall',
