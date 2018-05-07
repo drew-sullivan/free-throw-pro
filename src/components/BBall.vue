@@ -2,7 +2,7 @@
   <div>
 
     <nav>
-      <div class="col-xs-6 nav">cat</div>
+      <div class="col-xs-6 nav">Start: 26.2%</div>
       <div @click="logout" class="col-xs-6 nav logout">Logout&nbsp;&nbsp;<i class="fa fa-sign-out" aria-hidden="true"></i></div>
     </nav>
 
@@ -223,7 +223,7 @@ export default {
         right: this.right
       }
       this.toggle()
-      this.$emit('add-new-data', newData)
+      this.addNewData(newData)
       location.reload()
     },
     cancel: function () {

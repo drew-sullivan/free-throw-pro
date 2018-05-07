@@ -19,13 +19,6 @@ export default {
     return {
       currentUser: firebase.auth().currentUser
     }
-  },
-  methods: {
-    logout: function () {
-      firebase.auth().signOut().then(
-        () => this.$router.replace('login')
-      )
-    }
   }
 }
 </script>
@@ -37,7 +30,6 @@ export default {
   margin-bottom: 0;
   border-top: 5px solid #041E42;
 }
-
 .navbar-brand.abs {
   padding-left: 5px;
   color: #FFB81C;
@@ -45,23 +37,19 @@ export default {
   font-size: 37px;
   font-family: 'Permanent Marker', cursive;
 }
-
 .table {
   margin-top: 20px;
 }
-
 .title-icon {
   height: 50px;
   width: 50px;
 }
-
 .navbar a {
   padding-left: 16px;
   padding-right: 0px;
   padding-bottom: 0px;
   padding-top: 11px;
 }
-
 .color-box {
   height: 10px;
   width: 100%;

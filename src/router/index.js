@@ -15,7 +15,8 @@ let router = new Router({
     { path: '/bball', component: BBall, meta: { requiresAuth: true } },
     { path: '/login', component: Login },
     { path: '/sign-up', component: SignUp }
-  ]
+  ],
+  mode: 'history'
 })
 
 router.beforeEach(
