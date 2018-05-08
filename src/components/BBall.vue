@@ -68,8 +68,9 @@
         </div>
         <div id="avgChart" class="collapse" data-parent="#accordion">
           <div class="card-body">
-            <avg-chart v-if="sortedStats.length && runningAverages.length"
-                       v-bind:sortedStats="sortedStats" v-bind:runningAverages="runningAverages"
+            <avg-chart v-if="sortedStats.length && lineOfBestFit.length"
+                       v-bind:sortedStats="sortedStats"
+                       v-bind:lineOfBestFit="lineOfBestFit"
                        class="stat-chart">
             </avg-chart>
           </div>
@@ -174,15 +175,6 @@ export default {
     sortedStats: function () {
       return this.stats.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
     },
-    runningAverages: function () {
-      const of10Arr = Array.from(this.sortedStats, x => +x.of10).reverse()
-      const runningAverages = []
-      for (let i = 1; i <= of10Arr.length; i++) {
-        let currentArray = of10Arr.slice(0, i)
-        runningAverages.push(+(currentArray.reduce((acc, curr) => acc + curr) / currentArray.length).toFixed(2))
-      }
-      return runningAverages
-    },
     focusList: function () {
       const focusList = []
       for (let i = 0; i < this.shotTypes.length; i++) {
@@ -208,6 +200,11 @@ export default {
       const regObj = this.getRegressionObject('of10')
       const m = regObj.equation[0]
       return m
+    },
+    lineOfBestFit: function () {
+      const regObj = this.getRegressionObject('of10')
+      const lineOfBestFit = this.stats.map((stat, i) => regObj.predict(i)[1])
+      return lineOfBestFit
     }
   },
   methods: {

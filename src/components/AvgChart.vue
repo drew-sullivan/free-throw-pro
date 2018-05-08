@@ -3,7 +3,7 @@ import { Line } from 'vue-chartjs'
 
 export default {
   extends: Line,
-  props: [ 'sortedStats', 'runningAverages' ],
+  props: [ 'sortedStats', 'lineOfBestFit' ],
   data () {
     return {
       datacollection: {
@@ -17,7 +17,18 @@ export default {
             pointBackgroundColor: 'rgba(255, 184, 28, 1)',
             pointBorderColor: 'rgba(4, 30, 66, 1)',
             pointBorderWidth: 2,
-            data: this.runningAverages
+            data: this.sortedStats.map(stat => stat['of10']).reverse()
+          },
+          {
+            label: 'Line of Best Fit',
+            fill: false,
+            borderColor: 'green',
+            borderWidth: 4,
+            backgroundColor: 'black',
+            pointBackgroundColor: 'black',
+            pointBorderColor: 'orange',
+            pointBorderWidth: 2,
+            data: this.lineOfBestFit
           }
         ]
       }
