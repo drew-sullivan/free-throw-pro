@@ -50,10 +50,12 @@
       <button @click="add" class="btn btn-primary mobile-button">Submit</button>
     </div>
 
-    <p class="section-title top-label">Shots to focus on:</p>
-    <div class="focus-item" v-for="(item, i) in focusList" :key="i">
-      <img class="mr-3" src="../../static/favicon.png">
-      <span>{{ item | title }}</span>
+    <div v-if="sortedStats[0]">
+      <p class="section-title top-label">Shots to focus on:</p>
+      <div  class="focus-item" v-for="(item, i) in focusList" :key="i">
+        <img class="mr-3" src="../../static/favicon.png">
+        <span>{{ item | title }}</span>
+      </div>
     </div>
 
     <p class="section-title top-label">Data:</p>
@@ -141,12 +143,13 @@ import HelperShotsChart from './HelperShotsChart.vue'
 
 import firebase from 'firebase'
 
-import statsRef from '../../firebase-config'
+import { statsRef, userStats } from '../../firebase-config'
 
 export default {
   name: 'BBall',
   firebase: {
-    stats: statsRef
+    stats: statsRef,
+    userStats: userStats
   },
   components: {
     avgChart: AvgChart,
@@ -253,7 +256,10 @@ export default {
       return regressionObj
     },
     addNewData: function (newStats) {
+      const currentUser = firebase.auth().currentUser.uid
+      console.log(currentUser)
       statsRef.push(newStats)
+      userStats.push(newStats)
     },
     logout: function () {
       firebase.auth().signOut().then(

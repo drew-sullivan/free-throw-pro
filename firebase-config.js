@@ -11,6 +11,9 @@ const app = firebase.initializeApp(config)
 
 const db = app.database()
 let statsRef;
+let userStats;
 
-export default statsRef = db.ref('stats')
-console.log(firebase.auth().currentUser)
+statsRef = db.ref('stats')
+userStats = db.ref('userStats')
+
+export { statsRef, userStats }
