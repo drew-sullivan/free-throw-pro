@@ -11,15 +11,8 @@
 </template>
 
 <script>
-import firebase from 'firebase'
-
 export default {
-  name: 'title-navbar',
-  data () {
-    return {
-      currentUser: firebase.auth().currentUser
-    }
-  }
+  name: 'title-navbar'
 }
 </script>
 
