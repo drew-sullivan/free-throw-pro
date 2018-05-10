@@ -98,7 +98,7 @@
       <div class="card">
         <div class="card-header" id="historyTableHeading">
           <h5 class="mb-0">
-            <button class="ftp-btn data-btn collapsed" data-toggle="collapse" data-target="#historyTable">
+            <button @click="scrollTo('history')" class="ftp-btn data-btn collapsed" data-toggle="collapse" data-target="#historyTable">
               History
             </button>
           </h5>
@@ -264,6 +264,9 @@ export default {
       firebase.auth().signOut().then(
         () => this.$router.replace('login')
       )
+    },
+    scrollto: function (location) {
+      
     }
   },
   filters: {
