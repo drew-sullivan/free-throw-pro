@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
-
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed|Seaweed+Script');
 
 $primary-color: #831E31;
 $border-color: rgba(194, 144, 152, .2);
 
 body {
-  font-family: 'Roboto', sans-serif !important;
+  font-family: 'Roboto Condensed', sans-serif !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -14,10 +13,22 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: 60px !important;
+  margin: 45px auto !important;
 }
 
 h2 {
   font-size: 25px;
+}
+
+.app-title-img {
+  width: 45px;
+  margin: 20px;
+}
+
+.app-title {
+  font-family: 'Seaweed Script', cursive;
+  font-size: 35px;
+  margin-bottom: -10px;
 }
 
 p {

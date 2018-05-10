@@ -1,10 +1,14 @@
 <template>
   <div>
 
-    <nav>
+    <img class="app-title-img" src="../../static/favicon.png">
+
+    <p class="app-title">Free Throw Pro</p>
+
+    <!-- <nav>
       <div class="col-xs-6 nav">Start: 26.2%</div>
       <div @click="logout" class="col-xs-6 nav logout">Logout&nbsp;&nbsp;<i class="fa fa-sign-out" aria-hidden="true"></i></div>
-    </nav>
+    </nav> -->
 
     <div v-if="sortedStats.length">
       <h1>{{ freeThrowAverage }}%</h1>
