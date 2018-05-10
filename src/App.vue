@@ -28,11 +28,15 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   margin-top: 60px;
 }
 
 .container {
   margin-top: 5px !important;
+  background-color: #831E31;
+}
+
+canvas, table {
+  background-color: white;
 }
 </style>

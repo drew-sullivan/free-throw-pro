@@ -7,7 +7,6 @@
     </nav>
 
     <div v-if="sortedStats.length">
-      <p class="section-title">Free Throw Average</p>
       <h1>{{ freeThrowAverage }}%</h1>
     </div>
 
@@ -20,7 +19,7 @@
 
     <p class="section-title">{{ numSessionsRemaining }}</p>
 
-    <button v-show="!adding" @click="toggle" class="btn btn-success mobile-button util-margin-20">&#43; New Session</button>
+    <button v-show="!adding" @click="toggle" class="btn btn-success data0 util-margin-20">&#43; New Session</button>
     <div  v-show="adding" class="form-row">
       <div class="form-group col-md-2 col-xs-4">
         <label>Out of 10</label>
@@ -51,19 +50,18 @@
     </div>
 
     <div v-if="sortedStats[0]">
-      <p class="section-title top-label">Shots to focus on:</p>
-      <div  class="focus-item" v-for="(item, i) in focusList" :key="i">
-        <img class="mr-3" src="../../static/favicon.png">
+      <p class="section-title top-label">Shots to Focus On:</p>
+      <div class="focus-item" v-for="(item, i) in shotTypes" :key="i">
+        <img src="../../static/favicon.png">
         <span>{{ item | title }}</span>
       </div>
     </div>
 
-    <p class="section-title top-label">Data:</p>
     <div id="accordion">
       <div class="card">
         <div class="card-header" id="avgChartHeading">
           <h5 class="mb-0">
-            <button class="btn btn-secondary mobile-button collapsed" data-toggle="collapse" data-target="#avgChart">
+            <button class="btn btn-secondary data-btn collapsed util-margin-top-30" data-toggle="collapse" data-target="#avgChart">
               Average
             </button>
           </h5>
@@ -81,7 +79,7 @@
       <div class="card">
         <div class="card-header" id="helperShotsChartHeading">
           <h5 class="mb-0">
-            <button class="btn btn-secondary mobile-button llapsed" data-toggle="collapse" data-target="#helperShotsChart">
+            <button class="btn btn-secondary data-btn llapsed" data-toggle="collapse" data-target="#helperShotsChart">
               Helper Shots
             </button>
           </h5>
@@ -95,7 +93,7 @@
       <div class="card">
         <div class="card-header" id="historyTableHeading">
           <h5 class="mb-0">
-            <button class="btn btn-secondary mobile-button collapsed" data-toggle="collapse" data-target="#historyTable">
+            <button class="btn btn-secondary data-btn collapsed" data-toggle="collapse" data-target="#historyTable">
               History
             </button>
           </h5>
@@ -195,7 +193,7 @@ export default {
       if (numSessionsRemaining < 1) {
         return 'Calculating number of sessions remaining'
       } else {
-        return `≈ ${numSessionsRemaining} sessions remaining`
+        return `≈ ${numSessionsRemaining} Sessions Remaining`
       }
     },
     progress: function () {
@@ -306,12 +304,7 @@ label {
 }
 
 .top-label {
-  margin: 20px auto -10px auto !important;
-}
-
-.section-title {
-  font-size: 20px;
-  color: #878787;
+  margin: 20px auto 30px auto;
 }
 
 .util-margin-20 {
@@ -349,20 +342,20 @@ ul {
 }
 
 .focus-item {
-  margin: 15px auto;
+  margin: 7px 30%;
+  float: left;
+  padding-left: 25px;
 }
 
 .focus-item img {
   height: 20px;
   width: 20px;
-  float: left;
-  margin-left: 30%;
-  margin-top: 16px;
+  margin: 0 10px 7px 0;
 }
 
 .focus-item span {
-  margin-right: 30%;
-  font-size: 35px;
+  font-size: 22px;
+  color: white;
 }
 
 .fa-arrow-down {
@@ -380,5 +373,9 @@ ul {
 
 .logout {
   cursor: pointer;
+}
+
+.accordian {
+  margin-top: 30px;
 }
 </style>

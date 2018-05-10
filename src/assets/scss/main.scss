@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+
+$primary-color: #831E31;
+$border-color: rgba(194, 144, 152, .2);
+
+* {
+  font-family: 'Roboto', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: white;
+}
+
+.util-margin-top-30 {
+  margin-top: 30px;
+}
+
+.data-btn {
+  width: 100%;
+  color: $primary-color;
+  border-radius: 5px;
+  height: 60px;
+  font-size: 25px;
+  background-color: white;
+  font-weight: 600;
+}
+
+.data-btn:hover {
+  color: $primary-color;
+}
+
+.section-title {
+  color: white;
+  border-top: 2px solid $border-color;
+  padding-top: 15px;
+  font-size: 22px;
+  font-weight: bold;
+}

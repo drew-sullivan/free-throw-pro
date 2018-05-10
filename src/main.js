@@ -5,6 +5,8 @@ import router from './router'
 
 import firebase from 'firebase'
 
+import './assets/scss/main.scss'
+
 let app
 
 Vue.use(VueFire)
