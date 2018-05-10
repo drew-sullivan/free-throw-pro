@@ -20,6 +20,17 @@ h2 {
   font-size: 25px;
 }
 
+.container {
+  margin-top: 0 !important;
+  background-color: $primary-color;
+  background-color: red;
+  background: linear-gradient(to bottom right, $primary-color, #171717);
+}
+
+canvas, table {
+  background-color: white;
+}
+
 .app-title-img {
   width: 45px;
   margin: 20px;

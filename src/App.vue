@@ -29,13 +29,4 @@ export default {
   text-align: center;
   margin-top: 60px;
 }
-
-.container {
-  margin-top: 5px !important;
-  background-color: #831E31;
-}
-
-canvas, table {
-  background-color: white;
-}
 </style>
