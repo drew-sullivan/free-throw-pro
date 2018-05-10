@@ -4,7 +4,7 @@
 $primary-color: #831E31;
 $border-color: rgba(194, 144, 152, .2);
 
-* {
+body {
   font-family: 'Roboto', sans-serif !important;
 }
 
@@ -12,22 +12,51 @@ h1, h2, h3, h4, h5, h6 {
   color: white;
 }
 
+h1 {
+  font-size: 60px !important;
+}
+
+h2 {
+  font-size: 25px;
+}
+
+p {
+  font-size: 15px;
+  color: white;
+}
+
 .util-margin-top-30 {
   margin-top: 30px;
 }
 
-.data-btn {
+.util-margin-10 {
+  margin: 10px auto;
+}
+
+.ftp-btn {
   width: 100%;
-  color: $primary-color;
   border-radius: 5px;
-  height: 60px;
   font-size: 25px;
-  background-color: white;
   font-weight: 600;
+  height: 60px;
+  border: none;
+}
+
+.data-btn {
+  color: $primary-color;
+  background-color: white;
 }
 
 .data-btn:hover {
   color: $primary-color;
+}
+
+.success-btn {
+  position: relative;
+	display: inline-block;
+	background-image: linear-gradient(#3BCD07,#135204);
+	color: white;
+  font-weight: 100;
 }
 
 .section-title {
