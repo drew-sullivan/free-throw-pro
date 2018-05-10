@@ -143,13 +143,12 @@ import HelperShotsChart from './HelperShotsChart.vue'
 
 import firebase from 'firebase'
 
-import { statsRef, userStats } from '../../firebase-config'
+import { statsRef } from '../../firebase-config'
 
 export default {
   name: 'BBall',
   firebase: {
-    stats: statsRef,
-    userStats: userStats
+    stats: statsRef
   },
   components: {
     avgChart: AvgChart,
@@ -256,10 +255,7 @@ export default {
       return regressionObj
     },
     addNewData: function (newStats) {
-      const currentUser = firebase.auth().currentUser.uid
-      console.log(currentUser)
       statsRef.push(newStats)
-      userStats.push(newStats)
     },
     logout: function () {
       firebase.auth().signOut().then(

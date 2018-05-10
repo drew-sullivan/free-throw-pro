@@ -14,6 +14,5 @@ let statsRef;
 let userStats;
 
 statsRef = db.ref('stats')
-userStats = db.ref('userStats')
 
-export { statsRef, userStats }
+export { statsRef }
