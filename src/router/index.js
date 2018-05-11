@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import firebase from 'firebase'
+
 import BBall from '@/components/BBall'
 import Login from '@/components/Login'
 import SignUp from '@/components/SignUp'
 import ResetPassword from '@/components/ResetPassword'
-
-import firebase from 'firebase'
 
 Vue.use(Router)
 

@@ -27,7 +27,6 @@ export default {
   },
   methods: {
     signIn: function () {
-      // console.log(`rememberMe: ${this.rememberMe}`)
       if (this.rememberMe) {
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(
           () => firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
