@@ -1,13 +1,11 @@
 <template>
   <div>
 
-    <nav>
-      <div class="col-xs-6 nav">Start: 26.2%</div>
-      <div @click="logout" class="col-xs-6 nav logout">Logout&nbsp;&nbsp;<i class="fa fa-sign-out" aria-hidden="true"></i></div>
-    </nav>
+    <img class="app-title-img" src="../../static/favicon.png">
+
+    <p class="app-title">Free Throw Pro</p>
 
     <div v-if="sortedStats.length">
-      <p class="section-title">Free Throw Average</p>
       <h1>{{ freeThrowAverage }}%</h1>
     </div>
 
@@ -18,52 +16,52 @@
       <span class="progress-desc">&nbsp;Baskets/Session</span>
     </h2>
 
-    <p class="section-title">{{ numSessionsRemaining }}</p>
+    <p>{{ numSessionsRemaining }}</p>
 
-    <button v-show="!adding" @click="toggle" class="btn btn-success mobile-button util-margin-20">&#43; New Session</button>
-    <div  v-show="adding" class="form-row">
-      <div class="form-group col-md-2 col-xs-4">
+    <button v-show="!adding" @click="toggle" class="ftp-btn colored-btn success-btn util-margin-10"><i class="fa fa-plus" aria-hidden="true"></i>
+&nbsp;New Session</button>
+    <div v-show="adding" class="form-row shot-form util-margin-top-40">
+      <div class="form-group col-md-2 col-xs-4 input-shot-count">
         <label>Out of 10</label>
         <input class="form-control" type="number" placeholder="Out of 10" name="of10" value="num" v-model="of10">
       </div>
-      <div class="form-group col-md-2 col-xs-4">
+      <div class="form-group col-md-2 col-xs-4 input-shot-count">
         <label>Short</label>
         <input class="form-control" type="number" placeholder="Short" name="short" value="num" v-model="short">
       </div>
-      <div class="form-group col-md-2 col-xs-4">
+      <div class="form-group col-md-2 col-xs-4 input-shot-count">
         <label>Long</label>
         <input class="form-control" type="number" placeholder="Long" name="long" value="num" v-model="long">
       </div>
-      <div class="form-group col-md-2 col-xs-4">
+      <div class="form-group col-md-2 col-xs-4 input-shot-count">
         <label>Left</label>
-        <input class="form-control" type="number" placeholder="Left" name="left" value="num" v-model="left">
+        <input class="form-control" type="number input-shot-count" placeholder="Left" name="left" value="num" v-model="left">
       </div>
-      <div class="form-group col-md-2 col-xs-4">
+      <div class="form-group col-md-2 col-xs-4 input-shot-count">
         <label>Right</label>
         <input class="form-control" type="number" placeholder="Right" name="right" value="num" v-model="right">
       </div>
-      <div class="form-group col-md-2 col-xs-4">
+      <div class="form-group col-md-2 col-xs-4 input-shot-count">
         <label>Legit</label>
         <input class="form-control" type="number" placeholder="Legit" name="legit" value="num" v-model="legit">
       </div>
-      <button @click="cancel" class="btn btn-secondary mobile-button">Cancel</button>
-      <button @click="add" class="btn btn-primary mobile-button">Submit</button>
+      <button @click="cancel" class="ftp-btn light-btn cancel-btn util-margin-top-40">Cancel</button>
+      <button @click="add" class="ftp-btn colored-btn submit-btn util-margin-10">Submit</button>
     </div>
 
     <div v-if="sortedStats[0]">
-      <p class="section-title top-label">Shots to focus on:</p>
-      <div  class="focus-item" v-for="(item, i) in focusList" :key="i">
-        <img class="mr-3" src="../../static/favicon.png">
+      <p class="section-title top-label">Shots to Focus On:</p>
+      <div class="focus-item" v-for="(item, i) in focusList" :key="i">
+        <img src="../../static/favicon.png">
         <span>{{ item | title }}</span>
       </div>
     </div>
 
-    <p class="section-title top-label">Data:</p>
     <div id="accordion">
       <div class="card">
         <div class="card-header" id="avgChartHeading">
           <h5 class="mb-0">
-            <button class="btn btn-secondary mobile-button collapsed" data-toggle="collapse" data-target="#avgChart">
+            <button class="ftp-btn data-btn collapsed util-margin-top-40" data-toggle="collapse" data-target="#avgChart">
               Average
             </button>
           </h5>
@@ -81,21 +79,24 @@
       <div class="card">
         <div class="card-header" id="helperShotsChartHeading">
           <h5 class="mb-0">
-            <button class="btn btn-secondary mobile-button llapsed" data-toggle="collapse" data-target="#helperShotsChart">
+            <button class="ftp-btn data-btn llapsed" data-toggle="collapse" data-target="#helperShotsChart">
               Helper Shots
             </button>
           </h5>
         </div>
         <div id="helperShotsChart" class="collapse" data-parent="#accordion">
           <div class="card-body">
-            <helper-shots-chart v-if="sortedStats.length" v-bind:sortedStats="sortedStats" class="stat-chart"></helper-shots-chart>
+            <helper-shots-chart v-if="sortedStats.length"
+                                v-bind:sortedStats="sortedStats"
+                                class="stat-chart"></helper-shots-chart>
           </div>
         </div>
       </div>
       <div class="card">
         <div class="card-header" id="historyTableHeading">
           <h5 class="mb-0">
-            <button class="btn btn-secondary mobile-button collapsed" data-toggle="collapse" data-target="#historyTable">
+            <button class="ftp-btn data-btn collapsed"
+                    data-toggle="collapse" data-target="#historyTable">
               History
             </button>
           </h5>
@@ -195,7 +196,7 @@ export default {
       if (numSessionsRemaining < 1) {
         return 'Calculating number of sessions remaining'
       } else {
-        return `≈ ${numSessionsRemaining} sessions remaining`
+        return `${numSessionsRemaining} Sessions Remaining`
       }
     },
     progress: function () {
@@ -301,27 +302,8 @@ a {
   background-color: #FFD0D0;
 }
 
-label {
-  float: left;
-}
-
 .top-label {
-  margin: 20px auto -10px auto !important;
-}
-
-.section-title {
-  font-size: 20px;
-  color: #878787;
-}
-
-.util-margin-20 {
-  margin: 20px auto;
-}
-
-.mobile-button {
-  width: 100%;
-  height: 60px;
-  font-size: 35px;
+  margin: 20px auto 30px auto;
 }
 
 input[type="date"] {
@@ -349,20 +331,20 @@ ul {
 }
 
 .focus-item {
-  margin: 15px auto;
+  margin: 7px 30%;
+  float: left;
+  padding-left: 25px;
 }
 
 .focus-item img {
   height: 20px;
   width: 20px;
-  float: left;
-  margin-left: 30%;
-  margin-top: 16px;
+  margin: 0 10px 7px 0;
 }
 
 .focus-item span {
-  margin-right: 30%;
-  font-size: 35px;
+  font-size: 22px;
+  color: white;
 }
 
 .fa-arrow-down {
@@ -380,5 +362,13 @@ ul {
 
 .logout {
   cursor: pointer;
+}
+
+.accordian {
+  margin-top: 30px;
+}
+
+.input-shot-count {
+  color: white;
 }
 </style>

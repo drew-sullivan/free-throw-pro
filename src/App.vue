@@ -1,6 +1,5 @@
 <template>
   <div>
-    <title-navbar></title-navbar>
     <div id="app" class="container">
       <router-view></router-view>
     </div>
@@ -28,11 +27,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   margin-top: 60px;
-}
-
-.container {
-  margin-top: 5px !important;
 }
 </style>

@@ -4,10 +4,13 @@ import App from './App'
 import router from './router'
 
 import firebase from 'firebase'
+// import vueScrollto from 'vue-scrollto'
+import './assets/scss/main.scss'
 
 let app
 
 Vue.use(VueFire)
+// Vue.use(vueScrollto)
 Vue.config.productionTip = false
 
 firebase.auth().onAuthStateChanged(
