@@ -20,28 +20,28 @@
 
     <button v-show="!adding" @click="toggle" class="ftp-btn success-btn util-margin-10"><i class="fa fa-plus" aria-hidden="true"></i>
 &nbsp;New Session</button>
-    <div  v-show="adding" class="form-row">
-      <div class="form-group col-md-2 col-xs-4">
+    <div v-show="adding" class="form-row">
+      <div class="form-group col-md-2 col-xs-4 input-shot-count">
         <label>Out of 10</label>
         <input class="form-control" type="number" placeholder="Out of 10" name="of10" value="num" v-model="of10">
       </div>
-      <div class="form-group col-md-2 col-xs-4">
+      <div class="form-group col-md-2 col-xs-4 input-shot-count">
         <label>Short</label>
         <input class="form-control" type="number" placeholder="Short" name="short" value="num" v-model="short">
       </div>
-      <div class="form-group col-md-2 col-xs-4">
+      <div class="form-group col-md-2 col-xs-4 input-shot-count">
         <label>Long</label>
         <input class="form-control" type="number" placeholder="Long" name="long" value="num" v-model="long">
       </div>
-      <div class="form-group col-md-2 col-xs-4">
+      <div class="form-group col-md-2 col-xs-4 input-shot-count">
         <label>Left</label>
-        <input class="form-control" type="number" placeholder="Left" name="left" value="num" v-model="left">
+        <input class="form-control" type="number input-shot-count" placeholder="Left" name="left" value="num" v-model="left">
       </div>
-      <div class="form-group col-md-2 col-xs-4">
+      <div class="form-group col-md-2 col-xs-4 input-shot-count">
         <label>Right</label>
         <input class="form-control" type="number" placeholder="Right" name="right" value="num" v-model="right">
       </div>
-      <div class="form-group col-md-2 col-xs-4">
+      <div class="form-group col-md-2 col-xs-4 input-shot-count">
         <label>Legit</label>
         <input class="form-control" type="number" placeholder="Legit" name="legit" value="num" v-model="legit">
       </div>
@@ -143,7 +143,6 @@ import AvgChart from './AvgChart'
 import HelperShotsChart from './HelperShotsChart.vue'
 
 import firebase from 'firebase'
-// import vueScrollto from 'vue-scrollto'
 
 import { statsRef } from '../../firebase-config'
 
@@ -303,10 +302,6 @@ a {
   background-color: #FFD0D0;
 }
 
-label {
-  float: left;
-}
-
 .top-label {
   margin: 20px auto 30px auto;
 }
@@ -377,5 +372,9 @@ ul {
 
 .accordian {
   margin-top: 30px;
+}
+
+.input-shot-count {
+  color: white;
 }
 </style>
