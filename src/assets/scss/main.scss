@@ -4,6 +4,7 @@ $primary-color: #831E31;
 $border-color: rgba(194, 144, 152, .2);
 $secondary-color: #171717;
 $white: #fff;
+$iphone-x-height: 736px;
 
 body {
   font-family: 'Roboto Condensed', sans-serif !important;
@@ -26,6 +27,7 @@ h2 {
   margin-top: 0 !important;
   background-color: $primary-color;
   background: linear-gradient(to bottom right, $primary-color, $secondary-color);
+  min-height: $iphone-x-height;
 }
 
 canvas, table {
@@ -58,6 +60,27 @@ p {
 
 .util-margin-10 {
   margin: 10px auto;
+}
+
+.util-margin-30 {
+  margin: 30px auto;
+}
+
+.util-margin-50 {
+  margin: 50px auto;
+}
+
+.custom-input {
+  background: transparent;
+  border: none;
+  border-bottom-width: medium;
+  border-bottom-style: none;
+  border-bottom-color: currentcolor;
+  color: $white;
+  padding: 15px;
+  font-size: 20px;
+  border-bottom: 1px solid $white;
+  width: 100%;
 }
 
 .ftp-btn {

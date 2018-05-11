@@ -1,10 +1,6 @@
 <template>
   <div>
 
-    <img class="app-title-img" src="../../static/favicon.png">
-
-    <p class="app-title">Free Throw Pro</p>
-
     <div v-if="sortedStats.length">
       <h1>{{ freeThrowAverage }}%</h1>
     </div>
@@ -18,8 +14,9 @@
 
     <p>{{ numSessionsRemaining }}</p>
 
-    <button v-show="!adding" @click="toggle" class="ftp-btn colored-btn success-btn util-margin-10"><i class="fa fa-plus" aria-hidden="true"></i>
-&nbsp;New Session</button>
+    <button v-show="!adding" @click="toggle" class="ftp-btn colored-btn success-btn util-margin-10">
+      <i class="fa fa-plus"></i>&nbsp;New Session
+    </button>
     <div v-show="adding" class="form-row shot-form util-margin-top-40">
       <div class="form-group col-md-2 col-xs-4 input-shot-count">
         <label>Out of 10</label>
@@ -131,6 +128,10 @@
         </div>
       </div>
     </div>
+
+    <button @click="logout" class="ftp-btn light-btn cancel-btn util-margin-10">
+      <span class="glyphicon glyphicon-log-out"></span>&nbsp;Sign Out
+    </button>
 
   </div>
 </template>
