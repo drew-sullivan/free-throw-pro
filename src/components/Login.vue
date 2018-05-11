@@ -9,7 +9,7 @@
       <p class="pull-right">forgot password?</p>
     </div>
     <button class="ftp-btn light-btn data-btn util-margin-top-40" @click="signIn">Sign In</button>
-    <router-link to="/sign-up"><button>Create an Account</button></router-link>
+    <p class="util-margin-top-30">Don't have an account?&nbsp;<router-link to="/sign-up">Sign up</router-link></p>
   </div>
 </template>
 
@@ -45,9 +45,5 @@ label, p {
 input[type="checkbox"] {
   margin-left: 15px;
   margin-right: 10px;
-}
-
-.other-form-options {
-
 }
 </style>
