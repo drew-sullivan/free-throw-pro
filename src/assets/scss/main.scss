@@ -2,13 +2,15 @@
 
 $primary-color: #831E31;
 $border-color: rgba(194, 144, 152, .2);
+$secondary-color: #171717;
+$white: #fff;
 
 body {
   font-family: 'Roboto Condensed', sans-serif !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: white;
+  color: $white;
 }
 
 h1 {
@@ -23,11 +25,11 @@ h2 {
 .container {
   margin-top: 0 !important;
   background-color: $primary-color;
-  background: linear-gradient(to bottom right, $primary-color, #171717);
+  background: linear-gradient(to bottom right, $primary-color, $secondary-color);
 }
 
 canvas, table {
-  background-color: white;
+  background-color: $white;
 }
 
 .app-title-img {
@@ -43,7 +45,7 @@ canvas, table {
 
 p {
   font-size: 15px;
-  color: white;
+  color: $white;
 }
 
 .util-margin-top-30 {
@@ -63,25 +65,35 @@ p {
   border: none;
 }
 
+.light-btn {
+  background-color: $white;
+}
+
 .data-btn {
   color: $primary-color;
-  background-color: white;
 }
 
-.data-btn:hover {
-  color: $primary-color;
+.cancel-btn {
+  color: $secondary-color;
 }
 
-.success-btn {
+.colored-btn {
   position: relative;
-	display: inline-block;
-	background-image: linear-gradient(#3BCD07,#135204);
-	color: white;
+  display: inline-block;
+  color: $white;
   font-weight: 100;
 }
 
+.success-btn {
+	background-image: linear-gradient(#3BCD07, #135204);
+}
+
+.submit-btn {
+	background-image: linear-gradient(#4392f1, #132842);
+}
+
 .section-title {
-  color: white;
+  color: $white;
   border-top: 2px solid $border-color;
   padding-top: 15px;
   font-size: 22px;
@@ -89,8 +101,9 @@ p {
 }
 
 .form-control {
-  border: 1px solid white;
+  border: 1px solid $white;
   background-color: transparent;
+  color: $white;
 }
 
 input[type=number]::-webkit-inner-spin-button,
@@ -101,5 +114,9 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 input[type='number'] {
-  -moz-appearance:textfield;
+  -moz-appearance: textfield;
+}
+
+label {
+  font-weight: 500;
 }

@@ -18,9 +18,9 @@
 
     <p>{{ numSessionsRemaining }}</p>
 
-    <button v-show="!adding" @click="toggle" class="ftp-btn success-btn util-margin-10"><i class="fa fa-plus" aria-hidden="true"></i>
+    <button v-show="!adding" @click="toggle" class="ftp-btn colored-btn success-btn util-margin-10"><i class="fa fa-plus" aria-hidden="true"></i>
 &nbsp;New Session</button>
-    <div v-show="adding" class="form-row">
+    <div v-show="adding" class="form-row shot-form util-margin-top-30">
       <div class="form-group col-md-2 col-xs-4 input-shot-count">
         <label>Out of 10</label>
         <input class="form-control" type="number" placeholder="Out of 10" name="of10" value="num" v-model="of10">
@@ -45,8 +45,8 @@
         <label>Legit</label>
         <input class="form-control" type="number" placeholder="Legit" name="legit" value="num" v-model="legit">
       </div>
-      <button @click="cancel" class="btn btn-secondary mobile-button">Cancel</button>
-      <button @click="add" class="btn btn-primary mobile-button">Submit</button>
+      <button @click="cancel" class="ftp-btn light-btn cancel-btn util-margin-top-30">Cancel</button>
+      <button @click="add" class="ftp-btn colored-btn submit-btn util-margin-10">Submit</button>
     </div>
 
     <div v-if="sortedStats[0]">
@@ -304,12 +304,6 @@ a {
 
 .top-label {
   margin: 20px auto 30px auto;
-}
-
-.mobile-button {
-  width: 100%;
-  height: 60px;
-  font-size: 35px;
 }
 
 input[type="date"] {
