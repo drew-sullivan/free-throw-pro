@@ -1,6 +1,8 @@
 <template>
   <div>
     <div id="app" class="container">
+      <img class="app-title-img" src="../static/favicon.png">
+      <p class="app-title">Free Throw Pro</p>
       <router-view></router-view>
     </div>
   </div>

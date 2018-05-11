@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import BBall from '@/components/BBall'
 import Login from '@/components/Login'
 import SignUp from '@/components/SignUp'
+import ResetPassword from '@/components/ResetPassword'
 
 import firebase from 'firebase'
 
@@ -14,7 +15,8 @@ let router = new Router({
     { path: '/', redirect: '/login' },
     { path: '/bball', component: BBall, meta: { requiresAuth: true } },
     { path: '/login', component: Login },
-    { path: '/sign-up', component: SignUp }
+    { path: '/sign-up', component: SignUp },
+    { path: '/reset-password', component: ResetPassword }
   ],
   mode: 'history'
 })
