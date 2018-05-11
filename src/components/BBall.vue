@@ -61,7 +61,7 @@
       <div class="card">
         <div class="card-header" id="avgChartHeading">
           <h5 class="mb-0">
-            <button class="ftp-btn data-btn collapsed util-margin-top-40" data-toggle="collapse" data-target="#avgChart">
+            <button class="ftp-btn light-btn data-btn collapsed util-margin-top-40" data-toggle="collapse" data-target="#avgChart">
               Average
             </button>
           </h5>
@@ -79,7 +79,7 @@
       <div class="card">
         <div class="card-header" id="helperShotsChartHeading">
           <h5 class="mb-0">
-            <button class="ftp-btn data-btn llapsed" data-toggle="collapse" data-target="#helperShotsChart">
+            <button class="ftp-btn light-btn data-btn collapsed" data-toggle="collapse" data-target="#helperShotsChart">
               Helper Shots
             </button>
           </h5>
@@ -95,7 +95,7 @@
       <div class="card">
         <div class="card-header" id="historyTableHeading">
           <h5 class="mb-0">
-            <button class="ftp-btn data-btn collapsed"
+            <button class="ftp-btn light-btn data-btn collapsed"
                     data-toggle="collapse" data-target="#historyTable">
               History
             </button>
