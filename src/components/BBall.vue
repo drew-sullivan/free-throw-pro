@@ -20,7 +20,7 @@
 
     <button v-show="!adding" @click="toggle" class="ftp-btn colored-btn success-btn util-margin-10"><i class="fa fa-plus" aria-hidden="true"></i>
 &nbsp;New Session</button>
-    <div v-show="adding" class="form-row shot-form util-margin-top-30">
+    <div v-show="adding" class="form-row shot-form util-margin-top-40">
       <div class="form-group col-md-2 col-xs-4 input-shot-count">
         <label>Out of 10</label>
         <input class="form-control" type="number" placeholder="Out of 10" name="of10" value="num" v-model="of10">
@@ -45,7 +45,7 @@
         <label>Legit</label>
         <input class="form-control" type="number" placeholder="Legit" name="legit" value="num" v-model="legit">
       </div>
-      <button @click="cancel" class="ftp-btn light-btn cancel-btn util-margin-top-30">Cancel</button>
+      <button @click="cancel" class="ftp-btn light-btn cancel-btn util-margin-top-40">Cancel</button>
       <button @click="add" class="ftp-btn colored-btn submit-btn util-margin-10">Submit</button>
     </div>
 
@@ -61,7 +61,7 @@
       <div class="card">
         <div class="card-header" id="avgChartHeading">
           <h5 class="mb-0">
-            <button class="ftp-btn data-btn collapsed util-margin-top-30" data-toggle="collapse" data-target="#avgChart">
+            <button class="ftp-btn data-btn collapsed util-margin-top-40" data-toggle="collapse" data-target="#avgChart">
               Average
             </button>
           </h5>
