@@ -4,8 +4,8 @@
     <input class="custom-input util-margin-top-40" type="text" v-model="email" placeholder="Email Address"><br>
     <input class="custom-input" type="password" v-model="password" placeholder="Password"><br>
     <div class="util-margin-30">
-      <input class="form-check-input pull-left" type="checkbox" value="" id="defaultCheck1">
-      <label class="form-check-label pull-left" for="defaultCheck1">Remember Me</label>
+      <input class="form-check-input pull-left" type="checkbox" value="" id="rememberMe" v-model="rememberMe">
+      <label class="form-check-label pull-left" for="rememberMe">Remember Me</label>
       <p class="pull-right pw"><router-link to="/reset-password">Forgot Password?</router-link></p>
     </div>
     <button class="ftp-btn light-btn data-btn util-margin-top-40" @click="signIn">Sign In</button>
@@ -21,11 +21,13 @@ export default {
   data: function () {
     return {
       email: '',
-      password: ''
+      password: '',
+      rememberMe: false
     }
   },
   methods: {
     signIn: function () {
+      console.log(this.rememberMe)
       firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
         user => this.$router.replace('bball'),
         err => alert(`Whoops! ${err.message}`)
