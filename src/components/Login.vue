@@ -27,11 +27,22 @@ export default {
   },
   methods: {
     signIn: function () {
-      console.log(this.rememberMe)
-      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
-        user => this.$router.replace('bball'),
-        err => alert(`Whoops! ${err.message}`)
-      )
+      // console.log(`rememberMe: ${this.rememberMe}`)
+      if (this.rememberMe) {
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(
+          () => firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
+            user => this.$router.replace('bball'),
+            err => alert(`Whoops! ${err.message}`)
+          )
+        )
+      } else {
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(
+          () => firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
+            user => this.$router.replace('bball'),
+            err => alert(`Whoops! ${err.message}`)
+          )
+        )
+      }
     }
   }
 }
