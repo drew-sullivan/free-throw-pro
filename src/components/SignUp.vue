@@ -3,7 +3,7 @@
     <h3 class="util-margin-50">Create a New Account</h3>
     <input class="custom-input util-margin-top-40" type="text" v-model="email" placeholder="Email Address"><br>
     <input class="custom-input" type="password" v-model="password" placeholder="Password"><br>
-    <button class="ftp-btn light-btn data-btn util-margin-top-40" @click="signIn">Sign Up</button>
+    <button class="ftp-btn light-btn data-btn util-margin-top-40" @click="signUp">Sign Up</button>
     <p class="util-margin-top-30">Return to&nbsp;<router-link to="/login">Login</router-link></p>
   </div>
 </template>
@@ -41,4 +41,3 @@ label, p {
   margin-right: 15px;
 }
 </style>
-
