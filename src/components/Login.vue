@@ -6,7 +6,7 @@
     <div class="util-margin-30">
       <input class="form-check-input pull-left" type="checkbox" value="" id="defaultCheck1">
       <label class="form-check-label pull-left" for="defaultCheck1">Remember Me</label>
-      <p class="pull-right">forgot password?</p>
+      <p class="pull-right pw">Forgot Password?</p>
     </div>
     <button class="ftp-btn light-btn data-btn util-margin-top-40" @click="signIn">Sign In</button>
     <p class="util-margin-top-30">Don't have an account?&nbsp;<router-link to="/sign-up">Sign up</router-link></p>
@@ -44,6 +44,10 @@ label, p {
 
 input[type="checkbox"] {
   margin-left: 15px;
-  margin-right: 10px;
+  margin-right: 6px;
+}
+
+.pw {
+  margin-right: 15px;
 }
 </style>
