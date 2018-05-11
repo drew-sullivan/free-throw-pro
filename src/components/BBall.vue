@@ -51,7 +51,7 @@
 
     <div v-if="sortedStats[0]">
       <p class="section-title top-label">Shots to Focus On:</p>
-      <div class="focus-item" v-for="(item, i) in shotTypes" :key="i">
+      <div class="focus-item" v-for="(item, i) in focusList" :key="i">
         <img src="../../static/favicon.png">
         <span>{{ item | title }}</span>
       </div>
