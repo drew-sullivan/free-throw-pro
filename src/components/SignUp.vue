@@ -1,10 +1,10 @@
 <template>
   <div class="sign-up">
-    <p>Create a new Account</p>
-    <input type="text" v-model="email" placeholder="Email"><br>
-    <input type="password" v-model="password" placeholder="Password"><br>
-    <button @click="signUp">Sign Up</button>
-    <router-link to="/login"><button>Return to Login</button></router-link>
+    <h3 class="util-margin-50">Create a New Account</h3>
+    <input class="custom-input util-margin-top-40" type="text" v-model="email" placeholder="Email Address"><br>
+    <input class="custom-input" type="password" v-model="password" placeholder="Password"><br>
+    <button class="ftp-btn light-btn data-btn util-margin-top-40" @click="signIn">Sign Up</button>
+    <p class="util-margin-top-30">Return to&nbsp;<router-link to="/login">Login</router-link></p>
   </div>
 </template>
 
@@ -29,3 +29,16 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+label, p {
+  display: inline-block;
+  color: white;
+  font-size: 16px;
+}
+
+.pw {
+  margin-right: 15px;
+}
+</style>
+
