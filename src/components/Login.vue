@@ -9,7 +9,7 @@
       <p class="pull-right pw"><router-link to="/reset-password">Forgot Password?</router-link></p>
     </div>
     <button class="ftp-btn light-btn data-btn util-margin-top-40" @click="signIn">Sign In</button>
-    <p class="util-margin-top-30">Don't have an account?&nbsp;<router-link to="/sign-up">Sign up</router-link></p>
+    <p class="util-margin-top-30">Don't have an account?&nbsp;<router-link to="/sign-up">Sign Up</router-link></p>
   </div>
 </template>
 
@@ -29,14 +29,6 @@ export default {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
         user => this.$router.replace('bball'),
         err => alert(`Whoops! ${err.message}`)
-      )
-    },
-    sendPasswordResetEmail: function () {
-      const user = firebase.auth().currentUser
-      firebase.auth().sendPasswordResetEmail(user.email).then(
-        () => alert(`Password reset sent to ${user.email}`)
-      ).catch(
-        error => alert(`Uh-oh! ${error.message}`)
       )
     }
   }

@@ -19,10 +19,11 @@ export default {
   },
   methods: {
     sendPasswordResetEmail: function () {
-      const user = firebase.auth().currentUser
-      firebase.auth().sendPasswordResetEmail(user.email).then(
-        () => alert(`Password reset sent to ${user.email}`)
-      ).catch(
+      firebase.auth().sendPasswordResetEmail(this.email).then(
+        () => {
+          alert(`Password reset sent to ${this.email}`)
+          this.$router.replace('login')
+        }).catch(
         error => alert(`Uh-oh! ${error.message}`)
       )
     }
