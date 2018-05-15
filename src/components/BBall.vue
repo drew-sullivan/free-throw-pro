@@ -18,7 +18,14 @@
       <i class="fa fa-plus"></i>&nbsp;New Session
     </button>
     <div v-show="adding" class="form-row shot-form util-margin-top-40">
-      <div class="form-group col-md-2 col-xs-4 input-shot-count">
+
+      <div v-for="(shotType, i) in shotTypes" :key="i"
+           class="form-group col-md-2 col-xs-4 input-shot-count">
+           <label :for="shotType">{{ shotType }}</label>
+           <input class="form-control" type="number" :placeholder="shotType" :name="shotType" value="num" v-model="shotTypes[i]">
+      </div>
+
+      <!-- <div class="form-group col-md-2 col-xs-4 input-shot-count">
         <label>Out of 10</label>
         <input class="form-control" type="number" placeholder="Out of 10" name="of10" value="num" v-model="of10">
       </div>
@@ -41,7 +48,8 @@
       <div class="form-group col-md-2 col-xs-4 input-shot-count">
         <label>Legit</label>
         <input class="form-control" type="number" placeholder="Legit" name="legit" value="num" v-model="legit">
-      </div>
+      </div> -->
+
       <button @click="cancel" class="ftp-btn light-btn cancel-btn util-margin-top-40">Cancel</button>
       <button @click="add" class="ftp-btn colored-btn submit-btn util-margin-10">Submit</button>
     </div>
