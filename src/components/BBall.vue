@@ -130,6 +130,17 @@
       </div>
     </div>
 
+    <div class="dropdown">
+      <button class="ftp-btn light-btn cancel-btn dropdown-toggle"
+          type="button" id="dropdownMenu1" data-toggle="dropdown">
+          <span class="glyphicon glyphicon-calendar"></span>&nbsp;Time frame ({{ timeFrame.num }}&nbsp;{{ timeFrame.unit | title }})
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li><a href="#">Action</a></li>
+        <li><a href="#">Another action</a></li>
+        <li><a href="#">Something else here</a></li>
+      </ul>
+    </div>
     <button @click="logout" class="ftp-btn light-btn cancel-btn util-margin-10">
       <span class="glyphicon glyphicon-log-out"></span>&nbsp;Sign Out
     </button>
@@ -160,6 +171,7 @@ export default {
   data () {
     return {
       shotTypes: ['of10', 'short', 'long', 'left', 'right', 'legit'],
+      timeFrame: { num: 7, unit: 'days' },
       adding: false,
       date: '',
       legit: 0,
@@ -175,7 +187,12 @@ export default {
       return (this.getAvg('of10') * 10).toFixed(2)
     },
     sortedStats: function () {
-      return this.stats.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
+      const sortedStats = this.stats.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
+
+      const eraOfStats = sortedStats.filter(
+        stat => moment().subtract(this.timeFrame.num, this.timeFrame.unit).isBefore(stat.date)
+      )
+      return eraOfStats
     },
     focusList: function () {
       const focusList = []
@@ -247,7 +264,8 @@ export default {
       }
     },
     getAvg: function (prop) {
-      const arr = this.stats
+      const arr = this.sortedStats
+      // const arr = this.stats
       return (arr.reduce((acc, stat) => acc + +stat[prop], 0) / arr.length).toFixed(2)
     },
     getRegressionObject: function (prop) {
