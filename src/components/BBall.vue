@@ -130,13 +130,13 @@
       </div>
     </div>
 
-    <button class="ftp-btn light-btn cancel-btn dropdown-toggle"
+    <button 
       type="button" data-toggle="dropdown">
       <span class="glyphicon glyphicon-calendar"></span>&nbsp;Time frame ({{ timeFrame.num }}&nbsp;{{ timeFrame.unit | title }})
     </button>
-    <select v-model="timeFrame">
+    <select v-model="timeFrame" class="ftp-btn light-btn cancel-btn dropdown-toggle">
       <option v-for="(option, i) in timeFrameOptions" :value="option.value" :key="i">
-        {{ option.text }}
+        {{ option }}
       </option>
     </select>
     <button @click="logout" class="ftp-btn light-btn cancel-btn util-margin-10">
@@ -171,6 +171,7 @@ export default {
       shotTypes: ['of10', 'short', 'long', 'left', 'right', 'legit'],
       timeFrame: { num: 7, unit: 'days' },
       timeFrameOptions: [
+        // { text: '1 Week', value: { num: 1, unit: 'weeks' } },
         { text: '1 Week', value: { num: 1, unit: 'weeks' } },
         { text: '2 Weeks', value: { num: 2, unit: 'weeks' } },
         { text: '1 Month', value: { num: 1, unit: 'months' } },
