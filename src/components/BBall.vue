@@ -130,17 +130,15 @@
       </div>
     </div>
 
-    <div class="dropdown">
-      <button class="ftp-btn light-btn cancel-btn dropdown-toggle"
-          type="button" id="dropdownMenu1" data-toggle="dropdown">
-          <span class="glyphicon glyphicon-calendar"></span>&nbsp;Time frame ({{ timeFrame.num }}&nbsp;{{ timeFrame.unit | title }})
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-        <li><a href="#">Action</a></li>
-        <li><a href="#">Another action</a></li>
-        <li><a href="#">Something else here</a></li>
-      </ul>
-    </div>
+    <button class="ftp-btn light-btn cancel-btn dropdown-toggle"
+      type="button" data-toggle="dropdown">
+      <span class="glyphicon glyphicon-calendar"></span>&nbsp;Time frame ({{ timeFrame.num }}&nbsp;{{ timeFrame.unit | title }})
+    </button>
+    <select v-model="timeFrame">
+      <option v-for="(option, i) in timeFrameOptions" :value="option.value" :key="i">
+        {{ option.text }}
+      </option>
+    </select>
     <button @click="logout" class="ftp-btn light-btn cancel-btn util-margin-10">
       <span class="glyphicon glyphicon-log-out"></span>&nbsp;Sign Out
     </button>
@@ -172,6 +170,14 @@ export default {
     return {
       shotTypes: ['of10', 'short', 'long', 'left', 'right', 'legit'],
       timeFrame: { num: 7, unit: 'days' },
+      timeFrameOptions: [
+        { text: '1 Week', value: { num: 1, unit: 'weeks' } },
+        { text: '2 Weeks', value: { num: 2, unit: 'weeks' } },
+        { text: '1 Month', value: { num: 1, unit: 'months' } },
+        { text: '3 Months', value: { num: 3, unit: 'months' } },
+        { text: '6 Months', value: { num: 6, unit: 'months' } },
+        { text: 'All-Time', value: { num: 25, unit: 'years' } }
+      ],
       adding: false,
       date: '',
       legit: 0,
@@ -265,7 +271,6 @@ export default {
     },
     getAvg: function (prop) {
       const arr = this.sortedStats
-      // const arr = this.stats
       return (arr.reduce((acc, stat) => acc + +stat[prop], 0) / arr.length).toFixed(2)
     },
     getRegressionObject: function (prop) {
