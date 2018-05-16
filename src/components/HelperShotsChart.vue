@@ -13,18 +13,18 @@ export default {
           {
             label: 'short',
             fill: false,
-            borderColor: '#FE9A00',
+            borderColor: '#4392f1',
             pointBackgroundColor: 'white',
-            pointBorderColor: '#FE9A00',
+            pointBorderColor: '#4392f1',
             pointBorderWidth: 2,
             data: this.getData('short')
           },
           {
             label: 'long',
             fill: false,
-            borderColor: '#00D647',
+            borderColor: '#3BCD07',
             pointBackgroundColor: 'white',
-            pointBorderColor: '#00D647',
+            pointBorderColor: '#3BCD07',
             pointBorderWidth: 2,
             data: this.getData('long')
           }

@@ -11,10 +11,10 @@ export default {
         datasets: [
           {
             label: 'Day-to-Day Average',
-            borderColor: 'rgba(111, 38, 61, 1)',
+            borderColor: 'rgba(105, 28, 43, 1)',
             borderWidth: 4,
-            backgroundColor: 'rgba(111, 38, 61, 0.4)',
-            pointBackgroundColor: 'rgba(255, 184, 28, 1)',
+            backgroundColor: 'rgba(105, 28, 43, .4)',
+            pointBackgroundColor: 'rgba(250, 169, 22, 1)',
             pointBorderColor: 'rgba(4, 30, 66, 1)',
             pointBorderWidth: 2,
             data: this.sortedStats.map(stat => stat['of10']).reverse()
@@ -22,11 +22,11 @@ export default {
           {
             label: 'Line of Best Fit',
             fill: false,
-            borderColor: 'green',
+            borderColor: 'rgba(4, 30, 66, 1)',
             borderWidth: 4,
-            backgroundColor: 'black',
-            pointBackgroundColor: 'black',
-            pointBorderColor: 'orange',
+            backgroundColor: 'rgba(4, 30, 66, .4)',
+            pointBackgroundColor: 'rgba(4, 30, 66, 1)',
+            pointBorderColor: 'rgba(250, 169, 22, 1)',
             pointBorderWidth: 2,
             data: this.lineOfBestFit
           }
