@@ -11,15 +11,6 @@ export default {
         labels: this.getData('date'),
         datasets: [
           {
-            label: 'legit',
-            fill: false,
-            borderColor: '#FF0476',
-            pointBackgroundColor: 'white',
-            pointBorderColor: '#FF0476',
-            pointBorderWidth: 2,
-            data: this.getData('legit')
-          },
-          {
             label: 'short',
             fill: false,
             borderColor: '#FE9A00',
@@ -36,24 +27,6 @@ export default {
             pointBorderColor: '#00D647',
             pointBorderWidth: 2,
             data: this.getData('long')
-          },
-          {
-            label: 'left',
-            fill: false,
-            borderColor: '#006DD4',
-            pointBackgroundColor: 'white',
-            pointBorderColor: '#006DD4',
-            pointBorderWidth: 2,
-            data: this.getData('left')
-          },
-          {
-            label: 'right',
-            fill: false,
-            borderColor: '#5D2E8C',
-            pointBackgroundColor: 'white',
-            pointBorderColor: '#5D2E8C',
-            pointBorderWidth: 2,
-            data: this.getData('right')
           }
         ]
       }
