@@ -206,12 +206,9 @@ export default {
       this.date = moment().format()
       const newData = {
         date: this.date,
-        legit: this.legit,
         of10: this.of10,
         short: this.short,
-        long: this.long,
-        left: this.left,
-        right: this.right
+        long: this.long
       }
       this.toggle()
       this.addNewData(newData)
