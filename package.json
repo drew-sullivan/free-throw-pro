@@ -17,6 +17,7 @@
   "dependencies": {
     "chart.js": "^2.7.2",
     "firebase": "^4.13.1",
+    "jquery": "^3.3.1",
     "moment": "^2.22.1",
     "npm": "^6.0.0",
     "regression": "^2.0.1",
