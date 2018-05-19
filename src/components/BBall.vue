@@ -48,7 +48,25 @@
       <div class="card">
         <div class="card-header" id="avgChartHeading">
           <h5 class="mb-0">
-            <button class="ftp-btn light-btn data-btn collapsed util-margin-top-40" data-toggle="collapse" data-target="#avgChart">
+            <button class="ftp-btn light-btn data-btn collapsed util-margin-top-40" data-toggle="collapse" data-target="#playerTable">
+              Player Table
+            </button>
+          </h5>
+        </div>
+        <div id="playerTable" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <avg-chart v-if="sortedStats.length && lineOfBestFit.length"
+                       v-bind:sortedStats="sortedStats"
+                       v-bind:lineOfBestFit="lineOfBestFit"
+                       class="stat-chart">
+            </avg-chart>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="avgChartHeading">
+          <h5 class="mb-0">
+            <button class="ftp-btn light-btn data-btn collapsed" data-toggle="collapse" data-target="#avgChart">
               Average
             </button>
           </h5>
@@ -152,12 +170,10 @@ export default {
       shotTypes: ['of10', 'short', 'long'],
       adding: false,
       date: '',
-      legit: 0,
       of10: 0,
       short: 0,
       long: 0,
-      left: 0,
-      right: 0
+      closestNBAPlayer: ''
     }
   },
   mounted () {
@@ -184,24 +200,30 @@ export default {
             return playerBFreeThrowAvg - playerAFreeThrowAvg
           }
         )
-        playersSortedByFreeThrowAverage.forEach(item => {
-          const player = item.player
-          const freeThrowAvg = getFreeThrowAvg(item)
-          const freeThrowAttempts = +item.stats['FtAtt']['#text']
-          const freeThrowSuccesses = +item.stats['FtMade']['#text']
-          if (+item.stats['FtAtt']['#text'] && freeThrowAttempts >= 30) {
-            console.log(`${player.FirstName} ${player.LastName} - ${freeThrowAvg}% - ${freeThrowSuccesses}/${freeThrowAttempts}`)
+        // playersSortedByFreeThrowAverage.forEach(item => {
+        //   const player = item.player
+        //   const freeThrowAvg = getFreeThrowAvg(item)
+        //   const freeThrowAttempts = +item.stats['FtAtt']['#text']
+        //   const freeThrowSuccesses = +item.stats['FtMade']['#text']
+        //   if (+item.stats['FtAtt']['#text'] && freeThrowAttempts >= 30) {
+        //     console.log(`${player.FirstName} ${player.LastName} - ${freeThrowAvg}% - ${freeThrowSuccesses}/${freeThrowAttempts}`)
+        //   }
+        // })
+
+        for (let item of playersSortedByFreeThrowAverage) {
+          console.log(this.freeThrowAverage)
+          console.log(getFreeThrowAvg(item))
+          if (this.freeThrowAverage <= getFreeThrowAvg(item)) {
+            // console.log('\n\n\n')
+            console.log(`DREW!!! ${item}, getFreeThrowAvg(item)`)
           }
-        })
+        }
       }
     })
   },
   computed: {
     freeThrowAverage: function () {
       return (this.getAvg('of10') * 10).toFixed(2)
-    },
-    statsLen: function () {
-      return this.stats.length - 1
     },
     sortedStats: function () {
       return this.stats.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
