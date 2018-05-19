@@ -34,24 +34,22 @@ export default {
       success: function (data) {
         // const stats = JSON.stringify(data, null, '\t')
         const playerStats = data['cumulativeplayerstats']['playerstatsentry']
-        console.log(playerStats)
+        const getFreeThrowAvg = (player) => {
+          const freeThrowAttempts = +player.stats['FtAtt']['#text']
+          const freeThrowSuccesses = +player.stats['FtMade']['#text']
+          return (freeThrowSuccesses / freeThrowAttempts * 100).toFixed(2)
+        }
         const playersSortedByFreeThrowAverage = playerStats.sort(
-          (a, b) => {
-            const afreeThrowAttempts = +a.stats['FtAtt']['#text']
-            const afreeThrowSuccesses = +a.stats['FtMade']['#text']
-            const afreeThrowAvg = (afreeThrowSuccesses / afreeThrowAttempts * 100).toFixed(2)
-            const bfreeThrowAttempts = +b.stats['FtAtt']['#text']
-            const bfreeThrowSuccesses = +b.stats['FtMade']['#text']
-            const bfreeThrowAvg = (bfreeThrowSuccesses / bfreeThrowAttempts * 100).toFixed(2)
-            return bfreeThrowAvg - afreeThrowAvg
+          (playerA, playerB) => {
+            const playerAFreeThrowAvg = getFreeThrowAvg(playerA)
+            const playerBFreeThrowAvg = getFreeThrowAvg(playerB)
+            return playerBFreeThrowAvg - playerAFreeThrowAvg
           }
         )
         playersSortedByFreeThrowAverage.forEach(item => {
           const player = item.player
-          const freeThrowAttempts = +item.stats['FtAtt']['#text']
-          const freeThrowSuccesses = +item.stats['FtMade']['#text']
-          const freeThrowAvg = (freeThrowSuccesses / freeThrowAttempts * 100).toFixed(2)
-          if (freeThrowAttempts) {
+          const freeThrowAvg = getFreeThrowAvg(item)
+          if (+item.stats['FtAtt']['#text']) {
             console.log(`${player.FirstName} ${player.LastName} - ${freeThrowAvg}%`)
           }
         })
