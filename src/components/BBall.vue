@@ -359,6 +359,10 @@ ul {
   margin-bottom: 10px;
 }
 
+.input-shot-count label {
+  float: left;
+}
+
 .input-shot-count input {
   color: white;
   height: 60px;
