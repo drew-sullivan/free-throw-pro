@@ -361,6 +361,7 @@ ul {
 
 .input-shot-count label {
   float: left;
+  font-size: 20px;
 }
 
 .input-shot-count input {
