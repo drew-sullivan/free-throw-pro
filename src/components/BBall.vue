@@ -19,50 +19,15 @@
     </button>
     <div v-show="adding" class="form-row shot-form util-margin-top-40">
 
-      <div class="form-group col-md-2 col-xs-4 input-shot-count">
+      <div class="form-group input-shot-count ftp-btn">
         <label>Out of 10</label>
         <input class="form-control" type="number" placeholder="Out of 10" name="of10" value="num" v-model="of10">
       </div>
-      <div class="form-group col-md-2 col-xs-4 input-shot-count">
-        <label>Short</label>
-        <input class="form-control" type="number" placeholder="Short" name="short" value="num" v-model="short">
-      </div>
-      <div class="form-group col-md-2 col-xs-4 input-shot-count">
-        <label>Long</label>
-        <input class="form-control" type="number" placeholder="Long" name="long" value="num" v-model="long">
-      </div>
-
       <button @click="cancel" class="ftp-btn light-btn cancel-btn util-margin-top-40">Cancel</button>
       <button @click="add" class="ftp-btn colored-btn submit-btn util-margin-10">Submit</button>
     </div>
 
-    <div v-if="sortedStats[0]">
-      <p class="section-title top-label">Shots to Focus On:</p>
-      <div class="focus-item" v-for="(item, i) in focusList" :key="i">
-        <img src="../../static/favicon.png">
-        <span>{{ item | title }}</span>
-      </div>
-    </div>
-
     <div id="accordion">
-      <div class="card">
-        <div class="card-header" id="avgChartHeading">
-          <h5 class="mb-0">
-            <button class="ftp-btn light-btn data-btn collapsed util-margin-top-40" data-toggle="collapse" data-target="#playerTable">
-              Player Table
-            </button>
-          </h5>
-        </div>
-        <div id="playerTable" class="collapse" data-parent="#accordion">
-          <div class="card-body">
-            <avg-chart v-if="sortedStats.length && lineOfBestFit.length"
-                       v-bind:sortedStats="sortedStats"
-                       v-bind:lineOfBestFit="lineOfBestFit"
-                       class="stat-chart">
-            </avg-chart>
-          </div>
-        </div>
-      </div>
       <div class="card">
         <div class="card-header" id="avgChartHeading">
           <h5 class="mb-0">
@@ -78,22 +43,6 @@
                        v-bind:lineOfBestFit="lineOfBestFit"
                        class="stat-chart">
             </avg-chart>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="helperShotsChartHeading">
-          <h5 class="mb-0">
-            <button class="ftp-btn light-btn data-btn collapsed" data-toggle="collapse" data-target="#helperShotsChart">
-              Helper Shots
-            </button>
-          </h5>
-        </div>
-        <div id="helperShotsChart" class="collapse" data-parent="#accordion">
-          <div class="card-body">
-            <helper-shots-chart v-if="sortedStats.length"
-                                v-bind:sortedStats="sortedStats"
-                                class="stat-chart"></helper-shots-chart>
           </div>
         </div>
       </div>
@@ -167,7 +116,7 @@ export default {
   },
   data () {
     return {
-      shotTypes: ['of10', 'short', 'long'],
+      shotTypes: ['of10'],
       adding: false,
       date: '',
       of10: 0,
@@ -227,16 +176,6 @@ export default {
     },
     sortedStats: function () {
       return this.stats.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
-    },
-    focusList: function () {
-      const focusList = []
-      for (let i = 0; i < this.shotTypes.length; i++) {
-        let shotType = this.shotTypes[i]
-        if (shotType !== 'of10' && +this.sortedStats[0][shotType] >= +this.getAvg(shotType)) {
-          focusList.push(shotType)
-        }
-      }
-      return focusList
     },
     numSessionsRemaining: function () {
       const regObj = this.getRegressionObject('of10')
@@ -417,5 +356,13 @@ ul {
 
 .input-shot-count {
   color: white;
+  margin-bottom: 10px;
+}
+
+.input-shot-count input {
+  color: white;
+  height: 60px;
+  font-size: 35px;
+  font-weight: 100;
 }
 </style>
