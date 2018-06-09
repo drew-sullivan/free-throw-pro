@@ -19,36 +19,19 @@
     </button>
     <div v-show="adding" class="form-row shot-form util-margin-top-40">
 
-      <div class="form-group col-md-2 col-xs-4 input-shot-count">
+      <div class="form-group input-shot-count ftp-btn">
         <label>Out of 10</label>
         <input class="form-control" type="number" placeholder="Out of 10" name="of10" value="num" v-model="of10">
       </div>
-      <div class="form-group col-md-2 col-xs-4 input-shot-count">
-        <label>Short</label>
-        <input class="form-control" type="number" placeholder="Short" name="short" value="num" v-model="short">
-      </div>
-      <div class="form-group col-md-2 col-xs-4 input-shot-count">
-        <label>Long</label>
-        <input class="form-control" type="number" placeholder="Long" name="long" value="num" v-model="long">
-      </div>
-
       <button @click="cancel" class="ftp-btn light-btn cancel-btn util-margin-top-40">Cancel</button>
       <button @click="add" class="ftp-btn colored-btn submit-btn util-margin-10">Submit</button>
-    </div>
-
-    <div v-if="sortedStats[0]">
-      <p class="section-title top-label">Shots to Focus On:</p>
-      <div class="focus-item" v-for="(item, i) in focusList" :key="i">
-        <img src="../../static/favicon.png">
-        <span>{{ item | title }}</span>
-      </div>
     </div>
 
     <div id="accordion">
       <div class="card">
         <div class="card-header" id="avgChartHeading">
           <h5 class="mb-0">
-            <button class="ftp-btn light-btn data-btn collapsed util-margin-top-40" data-toggle="collapse" data-target="#avgChart">
+            <button class="ftp-btn light-btn data-btn collapsed" data-toggle="collapse" data-target="#avgChart">
               Average
             </button>
           </h5>
@@ -60,22 +43,6 @@
                        v-bind:lineOfBestFit="lineOfBestFit"
                        class="stat-chart">
             </avg-chart>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="helperShotsChartHeading">
-          <h5 class="mb-0">
-            <button class="ftp-btn light-btn data-btn collapsed" data-toggle="collapse" data-target="#helperShotsChart">
-              Helper Shots
-            </button>
-          </h5>
-        </div>
-        <div id="helperShotsChart" class="collapse" data-parent="#accordion">
-          <div class="card-body">
-            <helper-shots-chart v-if="sortedStats.length"
-                                v-bind:sortedStats="sortedStats"
-                                class="stat-chart"></helper-shots-chart>
           </div>
         </div>
       </div>
@@ -132,10 +99,11 @@ import regression from 'regression'
 
 import AvgChart from './AvgChart'
 import HelperShotsChart from './HelperShotsChart.vue'
+import { USERNAME, PASSWORD } from '../../mySportsFeeds-config'
+import { statsRef } from '../../firebase-config'
 
 import firebase from 'firebase'
-
-import { statsRef } from '../../firebase-config'
+import $ from 'jquery'
 
 export default {
   name: 'BBall',
@@ -148,36 +116,66 @@ export default {
   },
   data () {
     return {
-      shotTypes: ['of10', 'short', 'long'],
+      shotTypes: ['of10'],
       adding: false,
       date: '',
-      legit: 0,
       of10: 0,
       short: 0,
       long: 0,
-      left: 0,
-      right: 0
+      closestNBAPlayer: ''
     }
+  },
+  mounted () {
+    $.ajax({
+      type: 'GET',
+      url: 'https://api.mysportsfeeds.com/v1.2/pull/nba/2017-2018-regular/cumulative_player_stats.json?playerstats=FTA,FTM',
+      dataType: 'json',
+      async: true,
+      headers: {
+        'Authorization': 'Basic ' + btoa(`${USERNAME}:${PASSWORD}`)
+      },
+      success: function (data) {
+        // const stats = JSON.stringify(data, null, '\t')
+        const playerStats = data['cumulativeplayerstats']['playerstatsentry']
+        const getFreeThrowAvg = (player) => {
+          const freeThrowAttempts = +player.stats['FtAtt']['#text']
+          const freeThrowSuccesses = +player.stats['FtMade']['#text']
+          return (freeThrowSuccesses / freeThrowAttempts * 100).toFixed(2)
+        }
+        const playersSortedByFreeThrowAverage = playerStats.sort(
+          (playerA, playerB) => {
+            const playerAFreeThrowAvg = getFreeThrowAvg(playerA)
+            const playerBFreeThrowAvg = getFreeThrowAvg(playerB)
+            return playerBFreeThrowAvg - playerAFreeThrowAvg
+          }
+        )
+        // playersSortedByFreeThrowAverage.forEach(item => {
+        //   const player = item.player
+        //   const freeThrowAvg = getFreeThrowAvg(item)
+        //   const freeThrowAttempts = +item.stats['FtAtt']['#text']
+        //   const freeThrowSuccesses = +item.stats['FtMade']['#text']
+        //   if (+item.stats['FtAtt']['#text'] && freeThrowAttempts >= 30) {
+        //     console.log(`${player.FirstName} ${player.LastName} - ${freeThrowAvg}% - ${freeThrowSuccesses}/${freeThrowAttempts}`)
+        //   }
+        // })
+
+        for (let item of playersSortedByFreeThrowAverage) {
+          console.log(this.freeThrowAverage)
+          console.log(getFreeThrowAvg(item))
+          if (this.freeThrowAverage <= getFreeThrowAvg(item)) {
+            // console.log('\n\n\n')
+            console.log(`DREW!!! ${item}, getFreeThrowAvg(item)`)
+          }
+        }
+      }
+    })
   },
   computed: {
     freeThrowAverage: function () {
       return (this.getAvg('of10') * 10).toFixed(2)
     },
-    statsLen: function () {
-      return this.stats.length - 1
-    },
     sortedStats: function () {
       return this.stats.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
-    },
-    focusList: function () {
-      const focusList = []
-      for (let i = 0; i < this.shotTypes.length; i++) {
-        let shotType = this.shotTypes[i]
-        if (shotType !== 'of10' && +this.sortedStats[0][shotType] >= +this.getAvg(shotType)) {
-          focusList.push(shotType)
-        }
-      }
-      return focusList
     },
     numSessionsRemaining: function () {
       const regObj = this.getRegressionObject('of10')
@@ -358,5 +356,13 @@ ul {
 
 .input-shot-count {
   color: white;
+  margin-bottom: 10px;
+}
+
+.input-shot-count input {
+  color: white;
+  height: 60px;
+  font-size: 35px;
+  font-weight: 100;
 }
 </style>
