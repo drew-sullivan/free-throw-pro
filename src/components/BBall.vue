@@ -128,7 +128,7 @@ export default {
   mounted () {
     $.ajax({
       type: 'GET',
-      url: 'https://api.mysportsfeeds.com/v1.2/pull/nba/2017-2018-regular/cumulative_player_stats.json?playerstats=FTA,FTM',
+      url: 'https://api.mysportsfeeds.com/v1.2/pull/nba/2017-2018-regular/cumulative_player_stats.json?playerstats=FTA,FTM&player=lebron-james',
       dataType: 'json',
       async: true,
       headers: {
@@ -149,21 +149,21 @@ export default {
             return playerBFreeThrowAvg - playerAFreeThrowAvg
           }
         )
-        // playersSortedByFreeThrowAverage.forEach(item => {
-        //   const player = item.player
-        //   const freeThrowAvg = getFreeThrowAvg(item)
-        //   const freeThrowAttempts = +item.stats['FtAtt']['#text']
-        //   const freeThrowSuccesses = +item.stats['FtMade']['#text']
-        //   if (+item.stats['FtAtt']['#text'] && freeThrowAttempts >= 30) {
-        //     console.log(`${player.FirstName} ${player.LastName} - ${freeThrowAvg}% - ${freeThrowSuccesses}/${freeThrowAttempts}`)
-        //   }
-        // })
+        playersSortedByFreeThrowAverage.forEach(item => {
+          const player = item.player
+          const freeThrowAvg = getFreeThrowAvg(item)
+          const freeThrowAttempts = +item.stats['FtAtt']['#text']
+          const freeThrowSuccesses = +item.stats['FtMade']['#text']
+          if (+item.stats['FtAtt']['#text'] && freeThrowAttempts >= 30) {
+            console.log(`${player.FirstName} ${player.LastName} - ${freeThrowAvg}% - ${freeThrowSuccesses}/${freeThrowAttempts}`)
+          }
+        })
 
         for (let item of playersSortedByFreeThrowAverage) {
           console.log(this.freeThrowAverage)
           console.log(getFreeThrowAvg(item))
           if (this.freeThrowAverage <= getFreeThrowAvg(item)) {
-            // console.log('\n\n\n')
+            console.log('\n\n\n')
             console.log(`DREW!!! ${item}, getFreeThrowAvg(item)`)
           }
         }
