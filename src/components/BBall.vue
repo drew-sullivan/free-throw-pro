@@ -125,7 +125,7 @@ export default {
       lebronJamesFreeThrowAverage: 0
     }
   },
-  mounted () {
+  beforeCreate () {
     $.ajax({
       type: 'GET',
       url: 'https://api.mysportsfeeds.com/v1.2/pull/nba/2017-2018-regular/cumulative_player_stats.json?playerstats=FTA,FTM&player=lebron-james',
@@ -139,7 +139,7 @@ export default {
         const freeThrowsAttempted = lebronJames.stats['FtAtt']['#text']
         const freeThrowsMade = lebronJames.stats['FtMade']['#text']
         const freeThrowAverage = (freeThrowsMade / freeThrowsAttempted * 100).toFixed(2)
-        // console.log(`LeBron's free throw average: ${freeThrowAverage}%`)
+        // console.log(this.lebronJamesFreeThrowAverage)
         this.lebronJamesFreeThrowAverage = freeThrowAverage
         console.log(this.lebronJamesFreeThrowAverage)
       }
