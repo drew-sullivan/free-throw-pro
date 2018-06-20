@@ -17,6 +17,13 @@
     <p v-if="numSessionsRemaining > 0">Sessions remaining to catch LeBron: {{ numSessionsRemaining }}</p>
     <p v-else>Calculating sessions remaining to catch LeBron</p>
 
+    <div class="row">
+      <button class="col-md-3 light-btn data-btn timeframe-btn">All</button>
+      <button class="col-md-3 light-btn data-btn timeframe-btn">3 Months</button>
+      <button class="col-md-3 light-btn data-btn timeframe-btn">1 Month</button>
+      <button class="col-md-3 light-btn data-btn timeframe-btn">1 Week</button>
+    </div>
+
     <button v-show="!adding" @click="toggle" class="ftp-btn colored-btn success-btn util-margin-10">
       <i class="fa fa-plus"></i>&nbsp;New Session
     </button>
@@ -104,7 +111,7 @@ import firebase from 'firebase'
 
 import AvgChart from './AvgChart'
 import HelperShotsChart from './HelperShotsChart.vue'
-import { USERNAME, PASSWORD } from '../../mySportsFeeds-config'
+// import { USERNAME, PASSWORD } from '../../mySportsFeeds-config'
 import { statsRef } from '../../firebase-config'
 
 export default {
@@ -338,5 +345,20 @@ ul {
   height: 60px;
   font-size: 35px;
   font-weight: 100;
+}
+
+.timeframe-btn {
+  background: transparent;
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+  font-size: 20px;
+  padding: 5px 15px;
+}
+
+.timeframe-btn:hover,
+.timeframe-btn:focus,
+.timeframe-btn:active {
+  z-index: 99999;
 }
 </style>
