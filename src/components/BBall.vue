@@ -14,7 +14,8 @@
       <span class="progress-desc">&nbsp;Baskets/Session</span>
     </h2>
 
-    <p>{{ numSessionsRemaining }}</p>
+    <p v-if="numSessionsRemaining > 0">Sessions remaining to catch LeBron: {{ numSessionsRemaining }}</p>
+    <p v-else>Calculating sessions remaining to catch LeBron</p>
 
     <button v-show="!adding" @click="toggle" class="ftp-btn colored-btn success-btn util-margin-10">
       <i class="fa fa-plus"></i>&nbsp;New Session
@@ -140,11 +141,7 @@ export default {
       const m = regObj.equation[0]
       const b = regObj.equation[1]
       const numSessionsRemaining = Math.ceil(((this.lebronJamesFreeThrowAverage / 10) - b) / m)
-      if (numSessionsRemaining < 1) {
-        return 'Calculating number of sessions remaining'
-      } else {
-        return `Sessions remaining to catch LeBron: ${numSessionsRemaining}`
-      }
+      return numSessionsRemaining
     },
     progress: function () {
       const regObj = this.getRegressionObject('of10')
@@ -162,9 +159,7 @@ export default {
       this.date = moment().format()
       const newData = {
         date: this.date,
-        of10: this.of10,
-        short: this.short,
-        long: this.long
+        of10: this.of10
       }
       this.toggle()
       this.addNewData(newData)
