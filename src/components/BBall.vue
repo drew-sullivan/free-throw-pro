@@ -100,7 +100,6 @@ import moment from 'moment'
 import regression from 'regression'
 import axios from 'axios'
 import firebase from 'firebase'
-// import $ from 'jquery'
 
 import AvgChart from './AvgChart'
 import HelperShotsChart from './HelperShotsChart.vue'
@@ -140,11 +139,11 @@ export default {
       const regObj = this.getRegressionObject('of10')
       const m = regObj.equation[0]
       const b = regObj.equation[1]
-      const numSessionsRemaining = Math.ceil((10 - b) / m)
+      const numSessionsRemaining = Math.ceil(((this.lebronJamesFreeThrowAverage / 10) - b) / m)
       if (numSessionsRemaining < 1) {
         return 'Calculating number of sessions remaining'
       } else {
-        return `${numSessionsRemaining} Sessions Remaining`
+        return `Sessions remaining to catch LeBron: ${numSessionsRemaining}`
       }
     },
     progress: function () {
