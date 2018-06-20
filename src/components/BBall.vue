@@ -98,14 +98,14 @@
 <script>
 import moment from 'moment'
 import regression from 'regression'
+import axios from 'axios'
+import firebase from 'firebase'
+// import $ from 'jquery'
 
 import AvgChart from './AvgChart'
 import HelperShotsChart from './HelperShotsChart.vue'
 import { USERNAME, PASSWORD } from '../../mySportsFeeds-config'
 import { statsRef } from '../../firebase-config'
-
-import firebase from 'firebase'
-import $ from 'jquery'
 
 export default {
   name: 'BBall',
@@ -122,28 +122,12 @@ export default {
       adding: false,
       date: '',
       of10: 0,
-      lebronJamesFreeThrowAverage: 0
+      lebronJamesFreeThrowAverage: 0,
+      loadingLBJ: false
     }
   },
-  beforeCreate () {
-    $.ajax({
-      type: 'GET',
-      url: 'https://api.mysportsfeeds.com/v1.2/pull/nba/2017-2018-regular/cumulative_player_stats.json?playerstats=FTA,FTM&player=lebron-james',
-      dataType: 'json',
-      async: true,
-      headers: {
-        'Authorization': 'Basic ' + btoa(`${USERNAME}:${PASSWORD}`)
-      },
-      success: function (data) {
-        const lebronJames = data['cumulativeplayerstats']['playerstatsentry'][0]
-        const freeThrowsAttempted = lebronJames.stats['FtAtt']['#text']
-        const freeThrowsMade = lebronJames.stats['FtMade']['#text']
-        const freeThrowAverage = (freeThrowsMade / freeThrowsAttempted * 100).toFixed(2)
-        // console.log(this.lebronJamesFreeThrowAverage)
-        this.lebronJamesFreeThrowAverage = freeThrowAverage
-        console.log(this.lebronJamesFreeThrowAverage)
-      }
-    })
+  created () {
+    this.getLBJAverage()
   },
   computed: {
     freeThrowAverage: function () {
@@ -223,6 +207,22 @@ export default {
       firebase.auth().signOut().then(
         () => this.$router.replace('login')
       )
+    },
+    getLBJAverage: function () {
+      this.loadingLBJ = true
+      const config = {
+        headers: { 'Authorization': 'Basic ' + btoa(`${USERNAME}:${PASSWORD}`) }
+      }
+      axios.get('https://api.mysportsfeeds.com/v1.2/pull/nba/2017-2018-regular/cumulative_player_stats.json?playerstats=FTA,FTM&player=lebron-james', config)
+        .then(res => {
+          const lebronJames = res.data['cumulativeplayerstats']['playerstatsentry'][0]
+          const freeThrowsAttempted = lebronJames.stats['FtAtt']['#text']
+          const freeThrowsMade = lebronJames.stats['FtMade']['#text']
+          const freeThrowAverage = (freeThrowsMade / freeThrowsAttempted * 100).toFixed(2)
+          this.lebronJamesFreeThrowAverage = freeThrowAverage
+        }, error => {
+          console.log(`Error, Drew: ${error}`)
+        })
     }
   },
   filters: {

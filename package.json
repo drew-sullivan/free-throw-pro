@@ -15,6 +15,7 @@
     "deploy": "npm run build && firebase deploy"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "chart.js": "^2.7.2",
     "firebase": "^4.13.1",
     "jquery": "^3.3.1",
