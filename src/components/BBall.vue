@@ -5,6 +5,8 @@
       <h1>{{ freeThrowAverage }}%</h1>
     </div>
 
+    <p>LeBron's Average: {{ lebronJamesFreeThrowAverage }}%</p>
+
     <h2>
       <i v-if="progress > 0" class="fa fa-arrow-up"></i>
       <i v-else class="fa fa-arrow-down"></i>
@@ -96,14 +98,14 @@
 <script>
 import moment from 'moment'
 import regression from 'regression'
+import axios from 'axios'
+import firebase from 'firebase'
+// import $ from 'jquery'
 
 import AvgChart from './AvgChart'
 import HelperShotsChart from './HelperShotsChart.vue'
 import { USERNAME, PASSWORD } from '../../mySportsFeeds-config'
 import { statsRef } from '../../firebase-config'
-
-import firebase from 'firebase'
-import $ from 'jquery'
 
 export default {
   name: 'BBall',
@@ -120,55 +122,12 @@ export default {
       adding: false,
       date: '',
       of10: 0,
-      short: 0,
-      long: 0,
-      closestNBAPlayer: ''
+      lebronJamesFreeThrowAverage: 0,
+      loadingLBJ: false
     }
   },
-  mounted () {
-    $.ajax({
-      type: 'GET',
-      url: 'https://api.mysportsfeeds.com/v1.2/pull/nba/2017-2018-regular/cumulative_player_stats.json?playerstats=FTA,FTM',
-      dataType: 'json',
-      async: true,
-      headers: {
-        'Authorization': 'Basic ' + btoa(`${USERNAME}:${PASSWORD}`)
-      },
-      success: function (data) {
-        // const stats = JSON.stringify(data, null, '\t')
-        const playerStats = data['cumulativeplayerstats']['playerstatsentry']
-        const getFreeThrowAvg = (player) => {
-          const freeThrowAttempts = +player.stats['FtAtt']['#text']
-          const freeThrowSuccesses = +player.stats['FtMade']['#text']
-          return (freeThrowSuccesses / freeThrowAttempts * 100).toFixed(2)
-        }
-        const playersSortedByFreeThrowAverage = playerStats.sort(
-          (playerA, playerB) => {
-            const playerAFreeThrowAvg = getFreeThrowAvg(playerA)
-            const playerBFreeThrowAvg = getFreeThrowAvg(playerB)
-            return playerBFreeThrowAvg - playerAFreeThrowAvg
-          }
-        )
-        // playersSortedByFreeThrowAverage.forEach(item => {
-        //   const player = item.player
-        //   const freeThrowAvg = getFreeThrowAvg(item)
-        //   const freeThrowAttempts = +item.stats['FtAtt']['#text']
-        //   const freeThrowSuccesses = +item.stats['FtMade']['#text']
-        //   if (+item.stats['FtAtt']['#text'] && freeThrowAttempts >= 30) {
-        //     console.log(`${player.FirstName} ${player.LastName} - ${freeThrowAvg}% - ${freeThrowSuccesses}/${freeThrowAttempts}`)
-        //   }
-        // })
-
-        for (let item of playersSortedByFreeThrowAverage) {
-          console.log(this.freeThrowAverage)
-          console.log(getFreeThrowAvg(item))
-          if (this.freeThrowAverage <= getFreeThrowAvg(item)) {
-            // console.log('\n\n\n')
-            console.log(`DREW!!! ${item}, getFreeThrowAvg(item)`)
-          }
-        }
-      }
-    })
+  created () {
+    this.getLBJAverage()
   },
   computed: {
     freeThrowAverage: function () {
@@ -248,6 +207,22 @@ export default {
       firebase.auth().signOut().then(
         () => this.$router.replace('login')
       )
+    },
+    getLBJAverage: function () {
+      this.loadingLBJ = true
+      const config = {
+        headers: { 'Authorization': 'Basic ' + btoa(`${USERNAME}:${PASSWORD}`) }
+      }
+      axios.get('https://api.mysportsfeeds.com/v1.2/pull/nba/2017-2018-regular/cumulative_player_stats.json?playerstats=FTA,FTM&player=lebron-james', config)
+        .then(res => {
+          const lebronJames = res.data['cumulativeplayerstats']['playerstatsentry'][0]
+          const freeThrowsAttempted = lebronJames.stats['FtAtt']['#text']
+          const freeThrowsMade = lebronJames.stats['FtMade']['#text']
+          const freeThrowAverage = (freeThrowsMade / freeThrowsAttempted * 100).toFixed(2)
+          this.lebronJamesFreeThrowAverage = freeThrowAverage
+        }, error => {
+          console.log(`Error, Drew: ${error}`)
+        })
     }
   },
   filters: {
