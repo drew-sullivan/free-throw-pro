@@ -17,12 +17,14 @@
     <p v-if="numSessionsRemaining > 0">Sessions remaining to catch LeBron: {{ numSessionsRemaining }}</p>
     <p v-else>Calculating sessions remaining to catch LeBron</p>
 
-    <button v-for="(timeFrame, i) in timeFrames" :key="i"
+    <div>
+      <button v-for="(timeFrame, i) in timeFrames" :key="i"
             @click="timeFrameSelected = timeFrame"
             :class="{'timeframe-selected':timeFrame == timeFrameSelected}"
-            class="col-xs-3 timeframe-btn util-pill-box-left">
+            class="col-xs-3 timeframe-btn util-pill-box-left util-margin-10">
             {{ timeFrame }}
-    </button>
+      </button>
+    </div>
 
     <button v-show="!adding" @click="toggle" class="ftp-btn colored-btn success-btn util-margin-10">
       <i class="fa fa-plus"></i>&nbsp;New Session
