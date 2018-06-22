@@ -19,7 +19,7 @@
 
     <div>
       <button v-for="(timeFrame, i) in timeFrames" :key="i"
-            @click="timeFrameSelected = timeFrame"
+            @click="timeFrameSelected = timeFrame; updateData(timeFrame)"
             :class="{'timeframe-selected':timeFrame == timeFrameSelected}"
             class="col-xs-3 timeframe-btn util-pill-box-left util-margin-10">
             {{ timeFrame }}
@@ -144,7 +144,11 @@ export default {
       return (this.getAvg('of10') * 10).toFixed(2)
     },
     sortedStats: function () {
-      return this.stats.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
+      const rawStats = this.stats.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
+      const statsInTimeFrame = rawStats.filter(stat => moment(stat.date) > moment().subtract(7, 'days'))
+      const sortedStats = statsInTimeFrame.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
+      console.log(sortedStats)
+      return sortedStats
     },
     numSessionsRemaining: function () {
       const regObj = this.getRegressionObject('of10')
@@ -227,7 +231,7 @@ export default {
           console.log(`Error, Drew: ${error}`)
         })
     },
-    toggleSelectedTimeframe: function (duration) {
+    updateData: function (timeFrame) {
 
     }
   },
