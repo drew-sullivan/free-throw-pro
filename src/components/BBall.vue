@@ -20,8 +20,12 @@
     <div>
       <button v-for="(timeFrame, i) in timeFrames" :key="i"
             @click="timeFrameSelected = timeFrame; updateData(timeFrame)"
-            :class="{'timeframe-selected':timeFrame == timeFrameSelected}"
-            class="col-xs-3 timeframe-btn util-pill-box-left util-margin-10">
+            :class="{
+              'timeframe-selected': timeFrame === timeFrameSelected,
+              'util-pill-box-left': i === 0,
+              'util-pill-box-right': i === timeFrames.length - 1
+            }"
+            class="col-xs-3 timeframe-btn util-margin-10">
             {{ timeFrame }}
       </button>
     </div>
@@ -133,7 +137,7 @@ export default {
       of10: 0,
       lebronJamesFreeThrowAverage: 0,
       timeFrames: ['All', '3 Months', '1 Month', '1 Week'],
-      timeFrameSelected: undefined
+      timeFrameSelected: ''
     }
   },
   created () {
