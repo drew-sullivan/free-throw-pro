@@ -11,7 +11,6 @@ const app = firebase.initializeApp(config)
 
 const db = app.database()
 let statsRef;
-let userStats;
 
 statsRef = db.ref('stats')
 

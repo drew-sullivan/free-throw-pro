@@ -1,9 +1,7 @@
 <template>
   <div>
 
-    <div v-if="sortedStats.length">
-      <h1>{{ freeThrowAverage }}%</h1>
-    </div>
+    <h1>{{ freeThrowAverage }}%</h1>
 
     <p>LeBron's Average: {{ lebronJamesFreeThrowAverage }}%</p>
 
@@ -19,7 +17,7 @@
 
     <div>
       <button v-for="(timeFrame, i) in timeFrames" :key="i"
-            @click="timeFrameSelected = timeFrame; updateData(timeFrame)"
+            @click="timeFrameSelected = timeFrame; getStats(i)"
             :class="{
               'timeframe-selected': timeFrame === timeFrameSelected,
               'util-pill-box-left': i === 0,
@@ -54,7 +52,7 @@
         </div>
         <div id="avgChart" class="collapse" data-parent="#accordion">
           <div class="card-body">
-            <avg-chart v-if="sortedStats.length && lineOfBestFit.length"
+            <avg-chart v-if="lineOfBestFit.length"
                        v-bind:sortedStats="sortedStats"
                        v-bind:lineOfBestFit="lineOfBestFit"
                        class="stat-chart">
@@ -131,28 +129,23 @@ export default {
   },
   data () {
     return {
+      sortedStats: [],
       shotTypes: ['of10'],
       adding: false,
       date: '',
       of10: 0,
       lebronJamesFreeThrowAverage: 0,
       timeFrames: ['All', '3 Months', '1 Month', '1 Week'],
-      timeFrameSelected: ''
+      timeFrameSelected: '1 Week'
     }
   },
   created () {
+    this.getStats()
     this.getLBJAverage()
   },
   computed: {
     freeThrowAverage: function () {
       return (this.getAvg('of10') * 10).toFixed(2)
-    },
-    sortedStats: function () {
-      const rawStats = this.stats.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
-      const statsInTimeFrame = rawStats.filter(stat => moment(stat.date) > moment().subtract(7, 'days'))
-      const sortedStats = statsInTimeFrame.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
-      console.log(sortedStats)
-      return sortedStats
     },
     numSessionsRemaining: function () {
       const regObj = this.getRegressionObject('of10')
@@ -205,7 +198,7 @@ export default {
       }
     },
     getAvg: function (prop) {
-      const arr = this.stats
+      const arr = this.sortedStats
       return (arr.reduce((acc, stat) => acc + +stat[prop], 0) / arr.length).toFixed(2)
     },
     getRegressionObject: function (prop) {
@@ -235,8 +228,18 @@ export default {
           console.log(`Error, Drew: ${error}`)
         })
     },
-    updateData: function (timeFrame) {
-
+    getStats: function (timeFrame = 3) {
+      let numDays = 100000
+      if (timeFrame === 1) {
+        numDays = 90
+      } else if (timeFrame === 2) {
+        numDays = 30
+      } else if (timeFrame === 3) {
+        numDays = 7
+      }
+      const statsInTimeFrame = this.stats.filter(stat => moment(stat.date) > moment().subtract(numDays, 'days'))
+      const stats = statsInTimeFrame.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
+      this.sortedStats = stats
     }
   },
   filters: {
