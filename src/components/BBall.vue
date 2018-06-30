@@ -1,7 +1,9 @@
 <template>
   <div>
 
-    <h1>{{ freeThrowAverage }}%</h1>
+    <h1>{{ freeThrowAverage }}
+      <span v-if="freeThrowAverage > -1" :class="{'util-margin-left': freeThrowAverage > -1}">%</span>
+    </h1>
 
     <p>LeBron's Average: {{ lebronJamesFreeThrowAverage }}%</p>
 
@@ -15,15 +17,17 @@
     <p v-if="numSessionsRemaining > 0">Sessions remaining to catch LeBron: {{ numSessionsRemaining }}</p>
     <p v-else>Calculating sessions remaining to catch LeBron</p>
 
-    <div>
+    <div class="util-margin-10">
       <button v-for="(timeFrame, i) in timeFrames" :key="i"
             @click="timeFrameSelected = timeFrame; getStats(i)"
             :class="{
               'timeframe-selected': timeFrame === timeFrameSelected,
-              'util-pill-box-left': i === 0,
-              'util-pill-box-right': i === timeFrames.length - 1
+              'util-pill-box-top-left': i === 0,
+              'util-pill-box-top-right': i === 2,
+              'util-pill-box-bottom-left': i === 3,
+              'util-pill-box-bottom-right': i === timeFrames.length - 1
             }"
-            class="col-xs-3 timeframe-btn util-margin-10">
+            class="col-xs-4 timeframe-btn">
             {{ timeFrame }}
       </button>
     </div>
@@ -129,23 +133,33 @@ export default {
   },
   data () {
     return {
-      sortedStats: [],
+      timeFrames: ['All', '3 Months', '1 Month', '2 Weeks', '1 Week', 'Today'],
+      timeFrameSelected: '1 Week',
       shotTypes: ['of10'],
       adding: false,
       date: '',
       of10: 0,
       lebronJamesFreeThrowAverage: 0,
-      timeFrames: ['All', '3 Months', '1 Month', '1 Week'],
-      timeFrameSelected: '1 Week'
+      sortedStats: []
     }
+  },
+  beforeCreate () {
+    // nothing
   },
   created () {
     this.getStats()
     this.getLBJAverage()
   },
+  mounted () {
+    // nothing
+  },
   computed: {
     freeThrowAverage: function () {
-      return (this.getAvg('of10') * 10).toFixed(2)
+      const freeThrowAverage = (this.getAvg('of10') * 10).toFixed(2)
+      if (isNaN(freeThrowAverage)) {
+        return 'No Activity'
+      }
+      return freeThrowAverage
     },
     numSessionsRemaining: function () {
       const regObj = this.getRegressionObject('of10')
@@ -228,15 +242,17 @@ export default {
           console.log(`Error, Drew: ${error}`)
         })
     },
-    getStats: function (timeFrame = 3) {
+    getStats: function (timeFrame = 4) {
       let numDays = 100000
-      if (timeFrame === 1) {
-        numDays = 90
-      } else if (timeFrame === 2) {
-        numDays = 30
-      } else if (timeFrame === 3) {
-        numDays = 7
+      switch (timeFrame) {
+        case 1: numDays = 90; break
+        case 2: numDays = 30; break
+        case 3: numDays = 14; break
+        case 4: numDays = 7; break
+        case 5: numDays = 1; break
+        default: numDays = 100000
       }
+      console.log(`NUM DAYS: ${numDays}`)
       const statsInTimeFrame = this.stats.filter(stat => moment(stat.date) > moment().subtract(numDays, 'days'))
       const stats = statsInTimeFrame.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
       this.sortedStats = stats
@@ -361,6 +377,10 @@ ul {
   height: 60px;
   font-size: 35px;
   font-weight: 100;
+}
+
+.util-margin-left {
+  margin-left: -14px;
 }
 
 </style>

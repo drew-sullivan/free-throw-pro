@@ -76,14 +76,24 @@ p {
   margin: 50px auto;
 }
 
-.util-pill-box-right {
+.util-pill-box-top-right {
   border-top-right-radius: 5px;
+}
+
+.util-pill-box-bottom-right {
   border-bottom-right-radius: 5px;
 }
 
-.util-pill-box-left {
-  border-bottom-left-radius: 5px;
+.util-pill-box-top-left {
   border-top-left-radius: 5px;
+}
+
+.util-pill-box-bottom-left {
+  border-bottom-left-radius: 5px;
+}
+
+.border-bottom-none {
+  border-bottom: none;
 }
 
 .custom-input {
